@@ -55,6 +55,7 @@ import { postAction } from '@/api/manage'
         state:'',
         flag:'out',
         activeName:'first',
+        queryResult:'',
         form:{
           name:'',
         },
@@ -105,18 +106,26 @@ import { postAction } from '@/api/manage'
         this.flag = param
       },
       search(){
-
+        const url = '/profile/search'
+        postAction( url, { search: this.state }).then( res => {
+          this.queryResult = res.data.msg
+        })
       },
       getActiveName(param){
         this.activeName = param
       },
       querySearchAsync(queryString, cb){
-
+        console.log('queryString','cb',queryString, cb)
+      },
+      he(){
+        const url = `/profile/co/adminzxz`
+        getAction(url).then( res => {
+            console.log('res.data',res.data)
+        })
       },
       handleSelect(item){
          console.log(item);
       }
-
     }
   }
 </script>

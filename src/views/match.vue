@@ -1,9 +1,15 @@
 <template>
   <div style="padding:30px">
-    <div style="text-align:left">
+    <!-- <div style="text-align:left">
     <el-button type="primary" plain @click="toMatch">按主性格匹配</el-button>
     <el-button type="warning" plain @click="toMatch">按反性格匹配</el-button>
-    </div>
+    </div> -->
+    <el-radio-group v-model="tabPosition" @change="changeTab" style="margin-bottom: 30px;">
+      <el-radio-button label="first">1</el-radio-button>
+      <el-radio-button label="second">2</el-radio-button>
+      <el-radio-button label="third">3</el-radio-button>
+      <el-radio-button label="forth">5</el-radio-button>
+    </el-radio-group>
     <el-table
       style="margin-top:30px"
       v-loading="listLoading"
@@ -31,14 +37,14 @@
       </el-table-column>
       <el-table-column label="性别" min-width="100" align="center">
         <template slot-scope="scope">
-          {{ scope.row.gender }}
+          {{ scope.row.sex }}
         </template>
       </el-table-column>
-      <el-table-column label="出生时间" min-width="160" align="center">
+      <!-- <el-table-column label="出生时间" min-width="160" align="center">
         <template slot-scope="scope">
           {{ scope.row.date }}
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column label="城市" min-width="140" align="center">
         <template slot-scope="scope">
           {{ scope.row.province }}
@@ -63,14 +69,14 @@
     <el-row style="margin-left:50px">
       <el-col :md="8" :sm="12">
         <div class="content-wrap">
-          <div class="contentTitle">姓名</div>
-          <div class="content">{{ form.name }}</div>
+          <div class="contentTitle">昵称</div>
+          <div class="content">{{ form.nicknameme }}</div>
         </div>
       </el-col>
       <el-col :md="8" :sm="12">
         <div class="content-wrap">
           <div class="contentTitle">性别</div>
-          <div class="content">{{ form.gender }}</div>
+          <div class="content">{{ form.sex }}</div>
         </div>
       </el-col>
       <el-col :md="8" :sm="12">
@@ -81,35 +87,35 @@
       </el-col>
       <el-col :md="8" :sm="12">
         <div class="content-wrap">
-          <div class="contentTitle">出生地</div>
-          <div class="content">{{ form.province }}</div>
+          <div class="contentTitle">城市</div>
+          <div class="content">{{ form.city }}</div>
         </div>
       </el-col>
-      <el-col :md="8" :sm="12">
+      <!-- <el-col :md="8" :sm="12">
         <div class="content-wrap">
           <div class="contentTitle">婚否</div>
           <div class="content">{{ form.marriage }}</div>
         </div>
-      </el-col>
+      </el-col> -->
       <el-col :md="8" :sm="12">
         <div class="content-wrap">
-          <div class="contentTitle">工作</div>
-          <div class="content">{{ form.job }}</div>
+          <div class="contentTitle">十神性格</div>
+          <div class="content">{{ form.advantage }}</div>
         </div>
       </el-col>
       <el-col :md="8" :sm="12">
         <div class="content-wrap">
-          <div class="contentTitle">联系方式</div>
-          <div class="content">{{ form.contact }}</div>
+          <div class="contentTitle">缺点</div>
+          <div class="content">{{ form.disadvantage }}</div>
         </div>
       </el-col>
       <el-col :md="8" :sm="12">
         <div class="content-wrap">
-          <div class="contentTitle">从哪看到</div>
-          <div class="content">{{ form.where }}</div>
+          <div class="contentTitle">其他</div>
+          <div class="content">{{ form.other_coop }}</div>
         </div>
       </el-col>
-      <el-col :md="8" :sm="12">
+      <!-- <el-col :md="8" :sm="12">
         <div class="content-wrap">
           <div class="contentTitle">平台</div>
           <div class="content">{{ form.platform }}</div>
@@ -132,7 +138,7 @@
           <div class="contentTitle">提交时间</div>
           <div class="content">{{ form.calendar }}</div>
         </div>
-      </el-col>
+      </el-col> -->
       </el-row>
     </el-dialog>
   </div>
@@ -148,32 +154,48 @@ export default {
       ],
       listLoading: false,
       dialogVisible:false,
-      form:{}
+      tableData:{},
+      first:[],
+      second:[],
+      third:[],
+      forth:[],
+      tabPosition:''
     }
   },
-  // created() {
-  //   this.fetchData()
-  // },
+  created() {
+    this.fetchData()
+  },
   methods:{
+    changeTab(){
+      if(this.tabPosition === 'first') {
+        this.tableData = this.tableData.first
+      } else if(this.tabPosition === 'second'){
+        this.tableData = this.tableData.second
+      } else if(this.tabPosition === 'third'){
+        this.tableData = this.tableData.third
+      } else {
+        this.tableData = this.tableData.forth
+      }
+    },
     toMatch(){
       this.dialogVisible = false
       this.$emit('change','third')
     },
     fetchData(){
       this.listLoading = true
-      const url = 'admin/userlist'
-      postAction(url).then( res => {
-         this.list = res.data
-         this.listLoading = false
+      const url = `/profile/recommend`
+      getAction(url).then( res => {
+          this.tableData = res.data.msg
       })
+       this.listLoading = false
     },
     getUserDetail(id){
       this.dialogVisible = true
       // const url = 'admin/userdetail/' + id
-      // postAction(url).then( res => {
-      //   this.form = res.data
-      //   console.log(res)
-      // })
+        const url = `/profile/detail/`+ id
+        getAction(url).then( res => {
+            this.form = res.data.msg
+        })
     }
   }
 }

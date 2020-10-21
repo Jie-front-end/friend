@@ -54,7 +54,6 @@ export default {
 
     },
     detail(){
-
       this.$message.warning('按键111')
     },
     dialogVisual(){
@@ -62,7 +61,19 @@ export default {
     },
     goBack(){
       this.$emit('numChange','out')
-    }
+    },
+    message(){
+      const url = `/message/content/adminzxz`
+      getAction(url).then( res => {
+          console.log('res.data',res.data)
+      })
+    },
+    send(){
+      const url = `/message/send`
+      postAction(url,{login_name:'adminzxz', content:'你好'}).then( res => {
+          console.log('res.data',res.data)
+      })
+    },
   }
 }
 </script>

@@ -46,15 +46,15 @@ import {postAction, getAction} from '@/api/manage'
           if(valid){
               this.$store.commit('SET_LOGIN_NAME', this.ruleForm.login_name)
               this.$router.push({name: 'Home'})
-          //   postAction( url, this.ruleForm).then( res => {
-          //   if( res.code == 200) {
-          //     this.$store.commit('SET_LOGIN_NAME', this.ruleForm.login_name)
-          //     this.$router.push({name: 'Home'})
-          //   }
-          //   else{
-          //     this.$message.warning(res.mag)
-          //   }
-          //  })
+              postAction( url, this.ruleForm).then( res => {
+              if( res.code == 200) {
+                this.$store.commit('SET_LOGIN_NAME', this.ruleForm.login_name)
+                this.$router.push({name: 'Home'})
+              }
+              else{
+                this.$message.warning(res.mag)
+              }
+            })
          }
         })
       },

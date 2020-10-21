@@ -4,21 +4,24 @@
       <!-- <el-button  type="warning" plain @click="toMatch">私信</el-button> -->
     </div>
     <el-form class="mt20" ref="form" :model="form" label-width="200px" label-position="top" label-suffix=":">
-      <el-form-item label="用户名" prop="login_name">
-        <span>111</span>
+      <el-form-item label="生辰八字">
+        <span>{{form.birth_year}} {{form.birth_month}} {{form.birth_day}} {{form.birth_hour}}</span>
       </el-form-item>
-      <el-form-item label="主性格" prop="pass">
-        <span>111</span>
+      <el-form-item label="性别">
+        <span>{{form.sex}}</span>
       </el-form-item>
-      <el-form-item label="反性格" prop="name">
-        <span>111</span>
+      <el-form-item label="主性格">
+        <span>{{form.user_adv}}</span>
       </el-form-item>
-      <el-form-item label="前三年流年" prop="pass">
-         <div id="myChart1" :style="{width: '300px', height: '300px'}"></div>
+      <el-form-item label="反性格">
+        <span>{{form.user_dis}}</span>
       </el-form-item>
-      <el-form-item label="后三年流年" prop="name">
+      <el-form-item label="感情运势">
+         <div v-for="(item,index) in form.lucky" :key="index"><p>{{item.emotion}}</p></div>
+      </el-form-item>
+      <!-- <el-form-item label="后三年流年" prop="name">
          <div id="myChart2" :style="{width: '300px', height: '300px'}"></div>
-      </el-form-item>
+      </el-form-item> -->
     </el-form>
   </div>
 </template>
@@ -92,7 +95,7 @@ import { postAction,getAction } from '@/api/manage'
         const url = '/profile/host'
         getAction(url).then( res => {
             console.log(res.data)
-            this.form = res.data
+            this.form = res.data.msg
         })
       },
       toMatch(){

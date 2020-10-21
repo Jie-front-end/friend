@@ -68,9 +68,9 @@ export default {
       form:{}
     }
   },
-  // created() {
-  //   this.fetchData()
-  // },
+  created() {
+    this.box()
+  },
   methods:{
     toMatch(){
 
@@ -81,7 +81,13 @@ export default {
     dialogVisual(){
 
     },
-    hasRead(){}
+    hasRead(){},
+    box(){
+      const url = `/message/box`
+      getAction(url).then( res => {
+          console.log('res.data',res.data)
+      })
+    }
   }
 }
 </script>
