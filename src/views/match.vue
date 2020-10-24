@@ -70,7 +70,7 @@
       <el-col :md="8" :sm="12">
         <div class="content-wrap">
           <div class="contentTitle">昵称</div>
-          <div class="content">{{ form.nicknameme }}</div>
+          <div class="content">{{ form.nickname }}</div>
         </div>
       </el-col>
       <el-col :md="8" :sm="12">
@@ -144,7 +144,7 @@
   </div>
 </template>
 <script>
-import { postAction } from '@/api/manage'
+import { postAction, getAction } from '@/api/manage'
 
 export default {
   data() {

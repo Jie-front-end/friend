@@ -45,7 +45,7 @@
   </div>
 </template>
 <script>
-import { postAction } from '@/api/manage'
+import { postAction, getAction } from '@/api/manage'
 
 export default {
   data() {

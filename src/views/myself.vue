@@ -27,7 +27,7 @@
       </el-form-item>
       <el-form-item label="流年运势">
         <!-- <div v-for="(item,index) in form.lucky" :key="index"><p>{{item.emotion}}</p></div> -->
-      <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
+      <el-tabs v-model="activeName" type="card">
          <el-tab-pane v-for="(item,index) in form.lucky" :label="item.year" name="index">
             <p>感情：{{item.emotion}}</p>
             <p>领导关系：{{item.leader}}</p>    

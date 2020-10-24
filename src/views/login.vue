@@ -26,7 +26,7 @@ import {postAction, getAction} from '@/api/manage'
     data() {
       return {
       ruleForm: {
-        login_name: 'adminzxz',
+        login_name: '',
         login_pwd:''
       },
       rules: {
@@ -45,7 +45,6 @@ import {postAction, getAction} from '@/api/manage'
         this.$refs.ruleForm.validate( (valid) => {
           if(valid){
               this.$store.commit('SET_LOGIN_NAME', this.ruleForm.login_name)
-              this.$router.push({name: 'Home'})
               postAction( url, this.ruleForm).then( res => {
               if( res.data.code == 200) {
                 this.$store.commit('SET_LOGIN_NAME', this.ruleForm.login_name)

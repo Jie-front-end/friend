@@ -55,7 +55,9 @@ import { postAction } from '@/api/manage'
         state:'',
         flag:'out',
         activeName:'first',
-        queryResult:'',
+        queryResult:{},
+        filtList:[],
+        queryInput:'',
         form:{
           name:'',
         },
@@ -108,7 +110,9 @@ import { postAction } from '@/api/manage'
       search(){
         const url = '/profile/search'
         postAction( url, { search: this.state }).then( res => {
-          this.queryResult = res.data.msg
+          this.queryResult = res.data.msg.list
+        this.filtList = this.queryResult.map( item => {  return { value : `${this.queryInput}-${item.birth}-${item.city}-${item.sex }`, loginName: item.login_name } })
+        console.log('filtList', this.filtList)
         })
         console.log('this.queryResult',this.queryResult)
       },
@@ -116,8 +120,9 @@ import { postAction } from '@/api/manage'
         this.activeName = param
       },
       querySearchAsync(queryString, cb){
-        const value = [{ "value": "南拳妈妈龙虾盖浇饭", "address": "普陀区金沙江路1699号鑫乐惠美食广场A13"] }
-        console.log('queryString','cb',queryString, cb(value))
+        const value = [] 
+        this.queryInput = queryString
+        console.log('queryString','cb',queryString, cb(this.filtList))
         this.search()
       },
       he(){
@@ -128,6 +133,11 @@ import { postAction } from '@/api/manage'
       },
       handleSelect(item){
          console.log(item);
+         const select = item.value.split('-')
+         const loginName = item.loginName
+         console.log('select', select)
+         console.log('loginName', loginName)
+         this.state = select[0]
       }
     }
   }
