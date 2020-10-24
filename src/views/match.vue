@@ -5,10 +5,10 @@
     <el-button type="warning" plain @click="toMatch">按反性格匹配</el-button>
     </div> -->
     <el-radio-group v-model="tabPosition" @change="changeTab" style="margin-bottom: 30px;">
-      <el-radio-button label="first">1</el-radio-button>
-      <el-radio-button label="second">2</el-radio-button>
-      <el-radio-button label="third">3</el-radio-button>
-      <el-radio-button label="forth">5</el-radio-button>
+      <el-radio-button label="first"></el-radio-button>
+      <el-radio-button label="second"></el-radio-button>
+      <el-radio-button label="third"></el-radio-button>
+      <el-radio-button label="forth"></el-radio-button>
     </el-radio-group>
     <el-table
       style="margin-top:30px"

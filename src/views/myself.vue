@@ -4,11 +4,20 @@
       <!-- <el-button  type="warning" plain @click="toMatch">私信</el-button> -->
     </div>
     <el-form class="mt20" ref="form" :model="form" label-width="200px" label-position="top" label-suffix=":">
-      <el-form-item label="生辰八字">
+      <el-form-item label="昵称">
+        <span>{{form.nick}}</span>
+      </el-form-item>
+      <el-form-item label="八字">
         <span>{{form.birth_year}} {{form.birth_month}} {{form.birth_day}} {{form.birth_hour}}</span>
       </el-form-item>
       <el-form-item label="性别">
         <span>{{form.sex}}</span>
+      </el-form-item>
+      <el-form-item label="职业">
+        <span>{{form.career}}</span>
+      </el-form-item>
+      <el-form-item label="五行主宰">
+        <span>{{form.five_elements}}</span>
       </el-form-item>
       <el-form-item label="主性格">
         <span>{{form.user_adv}}</span>
@@ -16,8 +25,17 @@
       <el-form-item label="反性格">
         <span>{{form.user_dis}}</span>
       </el-form-item>
-      <el-form-item label="感情运势">
-         <div v-for="(item,index) in form.lucky" :key="index"><p>{{item.emotion}}</p></div>
+      <el-form-item label="流年运势">
+        <!-- <div v-for="(item,index) in form.lucky" :key="index"><p>{{item.emotion}}</p></div> -->
+      <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
+         <el-tab-pane v-for="(item,index) in form.lucky" :label="item.year" name="index">
+            <p>感情：{{item.emotion}}</p>
+            <p>领导关系：{{item.leader}}</p>    
+         </el-tab-pane>
+      </el-tabs>
+      </el-form-item>
+      <el-form-item label="注意">
+        <span>{{form.attention}}</span>
       </el-form-item>
       <!-- <el-form-item label="后三年流年" prop="name">
          <div id="myChart2" :style="{width: '300px', height: '300px'}"></div>
@@ -36,6 +54,7 @@ import { postAction,getAction } from '@/api/manage'
   },
     data() {
       return {
+        activeName:'',
         form:{
           name:'',
         },

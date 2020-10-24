@@ -110,12 +110,15 @@ import { postAction } from '@/api/manage'
         postAction( url, { search: this.state }).then( res => {
           this.queryResult = res.data.msg
         })
+        console.log('this.queryResult',this.queryResult)
       },
       getActiveName(param){
         this.activeName = param
       },
       querySearchAsync(queryString, cb){
-        console.log('queryString','cb',queryString, cb)
+        const value = [{ "value": "南拳妈妈龙虾盖浇饭", "address": "普陀区金沙江路1699号鑫乐惠美食广场A13"] }
+        console.log('queryString','cb',queryString, cb(value))
+        this.search()
       },
       he(){
         const url = `/profile/co/adminzxz`

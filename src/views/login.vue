@@ -47,12 +47,12 @@ import {postAction, getAction} from '@/api/manage'
               this.$store.commit('SET_LOGIN_NAME', this.ruleForm.login_name)
               this.$router.push({name: 'Home'})
               postAction( url, this.ruleForm).then( res => {
-              if( res.code == 200) {
+              if( res.data.code == 200) {
                 this.$store.commit('SET_LOGIN_NAME', this.ruleForm.login_name)
                 this.$router.push({name: 'Home'})
               }
               else{
-                this.$message.warning(res.mag)
+                this.$message.warning(res.data.msg)
               }
             })
          }
