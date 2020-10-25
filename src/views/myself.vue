@@ -28,9 +28,9 @@
       <el-form-item label="流年运势">
         <!-- <div v-for="(item,index) in form.lucky" :key="index"><p>{{item.emotion}}</p></div> -->
       <el-tabs v-model="activeName" type="card">
-         <el-tab-pane v-for="(item,index) in form.lucky" :label="item.year" name="index">
-            <p>感情：{{item.emotion}}</p>
-            <p>领导关系：{{item.leader}}</p>    
+         <el-tab-pane v-for="(item,index) in form.lucky" :label="item.year" :name="index">
+            <p>{{item.emotion}}</p>
+            <p>{{item.leader}}</p>    
          </el-tab-pane>
       </el-tabs>
       </el-form-item>
@@ -54,7 +54,7 @@ import { postAction,getAction } from '@/api/manage'
   },
     data() {
       return {
-        activeName:'',
+        activeName:0,
         form:{
           name:'',
         },
@@ -107,7 +107,7 @@ import { postAction,getAction } from '@/api/manage'
     },
     mounted(){
       console.log('login_name', this.login_name)
-      this.drawLine();
+      this.host();
     },
     methods: {
       host() {

@@ -13,7 +13,7 @@
           style="margin-right:20px"
           size="small"
         ></el-autocomplete>
-     <el-button type="primary" size="small" style="margin-left：20px" @click="search()">查询</el-button>
+     <el-button type="primary" size="small" style="margin-left：20px" @click="inputSearch()">查询</el-button>
     </div>
   </div>
   <div>
@@ -28,6 +28,9 @@
           <message @numChange="getflag" v-if="flag === 'out'"/>
           <message-detail @numChange="getflag" v-if="flag === 'in'"/>
         </el-tab-pane>
+        <el-tab-pane label="匹配结果" name="forth">
+          <match-result :coResult="coResult" />
+        </el-tab-pane>
      </el-tabs>
   </div>
   </el-card>
@@ -40,14 +43,16 @@ import myself from "./myself";
 import message from "./message";
 import match from "./match";
 import messageDetail from "./messageDetail";
-import { postAction } from '@/api/manage'
+import matchResult from "./matchResult";
+import { postAction, getAction  } from '@/api/manage'
   export default {
   components:{
     echartBar,
     myself,
     message,
     match,
-    messageDetail
+    messageDetail,
+    matchResult
   },
     data() {
       return {
@@ -61,6 +66,8 @@ import { postAction } from '@/api/manage'
         form:{
           name:'',
         },
+        login:'',
+        coResult:{},
         option:{
             tooltip: {
                 trigger: 'item',
@@ -107,12 +114,13 @@ import { postAction } from '@/api/manage'
       getflag(param){
         this.flag = param
       },
-      search(){
+      search(cb){
         const url = '/profile/search'
         postAction( url, { search: this.state }).then( res => {
-          this.queryResult = res.data.msg.list
+        this.queryResult = res.data.msg.list
         this.filtList = this.queryResult.map( item => {  return { value : `${this.queryInput}-${item.birth}-${item.city}-${item.sex }`, loginName: item.login_name } })
         console.log('filtList', this.filtList)
+        cb(this.filtList)
         })
         console.log('this.queryResult',this.queryResult)
       },
@@ -122,22 +130,24 @@ import { postAction } from '@/api/manage'
       querySearchAsync(queryString, cb){
         const value = [] 
         this.queryInput = queryString
-        console.log('queryString','cb',queryString, cb(this.filtList))
-        this.search()
+        console.log('queryString',queryString)
+        this.search(cb)
       },
       he(){
-        const url = `/profile/co/adminzxz`
+        const url = `/profile/co/${this.login}`
         getAction(url).then( res => {
-            console.log('res.data',res.data)
+            this.coResult = res.data.msg.result
         })
       },
       handleSelect(item){
          console.log(item);
          const select = item.value.split('-')
-         const loginName = item.loginName
-         console.log('select', select)
-         console.log('loginName', loginName)
          this.state = select[0]
+         this.login = item.loginName
+      },
+      inputSearch(){
+          this.he()
+          this.activeName = 'forth'
       }
     }
   }
