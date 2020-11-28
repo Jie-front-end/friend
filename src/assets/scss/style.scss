@@ -1,0 +1,51 @@
+.mr5 {
+  margin-right: 5px;
+}
+
+.tr{
+  text-align: center;
+}
+.mr10 {
+  margin-right: 10px;
+}
+
+.mt20 {
+  margin-top: 20px;
+}
+
+.mt10 {
+  margin-top: 10px;
+}
+
+.mb10 {
+  margin-bottom: 10px;
+}
+
+.mb20 {
+  margin-bottom: 20px;
+}
+
+.wrapper {
+  text-align: justify;
+  display: flex;
+  flex-wrap: wrap;
+}
+.box-card{
+ width: 100%;
+ margin-bottom: 10px;
+}
+.card-head{
+  font-size: 20px;
+  font-weight: bold;
+  color: #474747 ;
+  font-family: NSimSun;
+}
+.card-item-head{
+  font-size: 18px;
+  font-weight: bold;
+  color: #FF6B3B ;
+  font-family: NSimSun;
+  border-bottom: 1.5px solid #FF9E7B;
+  display: inline-block;
+  margin-bottom: 10px;
+}

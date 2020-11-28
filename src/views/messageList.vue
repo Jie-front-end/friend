@@ -1,6 +1,33 @@
 <template>
-  <div style="padding:30px">
-      <el-card class="card">
+   <div class="wrapper">
+    <div style="display:flex;justify-content:space-between">
+      <div>60条</div>
+      <div style="text-align:right">
+        <el-button style="margin-bottom:5px" size="small" @click="hasRead">全部已读</el-button>
+      </div>
+    </div>
+    <el-card class="card">
+      <div>
+        <div v-for="(item, index) in massageList" :key="index" >
+          <div class="body-item">
+            <div style="margin-left:15px" class="name-position" @click="detail">
+              {{item.name}}
+              <!-- <span class="right-corner">1</span> -->
+            </div>
+            <div style="margin-right:15px">
+              <span class="small-font">7天前</span>
+              <el-button @click="dialogVisual" size='small' type="text">删除</el-button>
+            </div>
+          </div>
+          <el-divider></el-divider>
+            <!-- <el-button plain style="width:100%;margin-bottom:10px">
+              {{item.name}}
+            <el-tag :type="item.num > 0 ? 'warning' : 'success'">{{item.num}}</el-tag>
+            </el-button> -->
+
+        </div>
+      </div>
+      <!-- <div v-else>
         <div class="lr">
             <div v-for="(item, index) in twoMassageList" :key="index" >
                 <el-button plain style="width:100%;margin-bottom:10px;text-align:left">
@@ -13,11 +40,12 @@
           <el-input v-model="name" style="width:200px;margin-right:10px;flex:1" placeholder="请输入内容"></el-input>
           <el-button type="primary" size="small" style="margin-left：20px" @click="goBack()">发送</el-button>
         </div>
-      </el-card>
+      </div> -->
+    </el-card>
   </div>
 </template>
 <script>
-import { postAction } from '@/api/manage'
+import { postAction, getAction } from '@/api/manage'
 
 export default {
   data () {
@@ -40,31 +68,23 @@ export default {
       form: {}
     }
   },
-  // created() {
-  //   this.fetchData()
-  // },
+  created () {
+    this.box()
+  },
   methods: {
     toMatch () {
 
     },
     detail () {
-      this.$message.warning('按键111')
+      this.$emit('numChange', 'in')
     },
     dialogVisual () {
 
     },
-    goBack () {
-      this.$emit('numChange', 'out')
-    },
-    message () {
-      const url = '/message/content/adminzxz'
+    hasRead () {},
+    box () {
+      const url = '/message/box'
       getAction(url).then(res => {
-        console.log('res.data', res.data)
-      })
-    },
-    send () {
-      const url = '/message/send'
-      postAction(url, { login_name: 'adminzxz', content: '你好' }).then(res => {
         console.log('res.data', res.data)
       })
     }
@@ -72,12 +92,6 @@ export default {
 }
 </script>
 <style scoped>
-.lr{
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-
-}
   .fr{
      align-self:flex-end
   }

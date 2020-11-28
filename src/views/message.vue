@@ -1,98 +1,63 @@
 <template>
-  <div style="padding:30px">
-  <div style="display:flex;justify-content:space-between">
-      <div>60条</div>
-      <div style="text-align:right">
-        <el-button style="margin-bottom:5px" size="small" @click="hasRead">全部已读</el-button>
-      </div>
-  </div>
-  <el-card class="card">
-    <div>
-      <div v-for="(item, index) in massageList" :key="index" >
-        <div class="body-item">
-          <div style="margin-left:15px" class="name-position" @click="detail">
-            {{item.name}}
-            <span class="right-corner">1</span>
-          </div>
-          <div style="margin-right:15px">
-            <span class="small-font">7天前</span>
-            <el-button @click="dialogVisual" size='small' type="text">删除</el-button>
-          </div>
-        </div>
-        <el-divider></el-divider>
-          <!-- <el-button plain style="width:100%;margin-bottom:10px">
-            {{item.name}}
-          <el-tag :type="item.num > 0 ? 'warning' : 'success'">{{item.num}}</el-tag>
-          </el-button> -->
-
-      </div>
+   <div class="wrapper">
+    <div class="content-head">
+        <el-button style="float: left; padding: 3px 4px;margin-right:10px;color:#FF6B3B" @click="$router.push({name: 'Home'})" icon="el-icon-caret-left" circle></el-button>
+        <span class="card-head">私信</span>
     </div>
-    <!-- <div v-else>
-      <div class="lr">
-          <div v-for="(item, index) in twoMassageList" :key="index" >
-              <el-button plain style="width:100%;margin-bottom:10px;text-align:left">
-                {{item.name}} :
-                {{item.message}}
-              </el-button>
-          </div>
+    <el-card class="box-card" shadow="false" >
+      <div class="content-body">
+          <router-view />
       </div>
-      <div style="display:flex; margin-top:20px">
-        <el-input v-model="name" style="width:200px;margin-right:10px;flex:1" placeholder="请输入内容"></el-input>
-        <el-button type="primary" size="small" style="margin-left：20px" @click="goBack()">发送</el-button>
-      </div>
-    </div> -->
   </el-card>
   </div>
 </template>
 <script>
 import { postAction, getAction } from '@/api/manage'
-
 export default {
-  data() {
+  data () {
     return {
       page: 1,
-      name:'',
-      massageList:[
-        {name:'李大力', num: 1},
-        {name:'苏大强', num: 0}
+      name: '',
+      massageList: [
+        { name: '李大力', num: 1 },
+        { name: '苏大强', num: 0 }
       ],
-      twoMassageList:[
-        {name:'李大力', message: '你好', status: 'send'},
-        {name:'苏大强', message: '你好', status: 'receive'}
+      twoMassageList: [
+        { name: '李大力', message: '你好', status: 'send' },
+        { name: '苏大强', message: '你好', status: 'receive' }
       ],
       list: [
-        {name:'1'}
+        { name: '1' }
       ],
       listLoading: false,
-      dialogVisible:false,
-      form:{}
+      dialogVisible: false,
+      form: {}
     }
   },
-  created() {
+  created () {
     this.box()
   },
-  methods:{
-    toMatch(){
+  methods: {
+    toMatch () {
 
     },
-    detail(){
-      this.$emit('numChange','in')
+    detail () {
+      this.$emit('numChange', 'in')
     },
-    dialogVisual(){
+    dialogVisual () {
 
     },
-    hasRead(){},
-    box(){
-      const url = `/message/box`
-      getAction(url).then( res => {
-          console.log('res.data',res.data)
+    hasRead () {},
+    box () {
+      const url = '/message/box'
+      getAction(url).then(res => {
+        console.log('res.data', res.data)
       })
     }
   }
 }
 </script>
 <style scoped>
-
   .fr{
      align-self:flex-end
   }
@@ -102,6 +67,24 @@ export default {
   .body-item{
     display:flex;
     justify-content:space-between
+  }
+  .card-head{
+  font-size: 20px;
+  font-weight: bold;
+  color: #474747 ;
+  font-family: NSimSun;
+  }
+  .content-head{
+    display: flex;
+    align-items: center;
+    height: 60px;
+    width: 100%;
+    padding: 0px 20px;
+    background:#FFE0C7;
+    border-radius: 10px;
+  }
+  .content-body{
+    height: 1000px;
   }
   .small-font{
     font-size: 12px;
@@ -125,5 +108,3 @@ export default {
     position: relative;
   }
 </style>
-
-

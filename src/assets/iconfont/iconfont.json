@@ -1,0 +1,79 @@
+{
+  "id": "2232535",
+  "name": "friend",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "8288959",
+      "name": "爱心",
+      "font_class": "aixin",
+      "unicode": "e85c",
+      "unicode_decimal": 59484
+    },
+    {
+      "icon_id": "8448651",
+      "name": "退出登录",
+      "font_class": "tuichudenglu",
+      "unicode": "e61e",
+      "unicode_decimal": 58910
+    },
+    {
+      "icon_id": "11344407",
+      "name": "私信",
+      "font_class": "sixin",
+      "unicode": "e628",
+      "unicode_decimal": 58920
+    },
+    {
+      "icon_id": "3287472",
+      "name": "查看详情",
+      "font_class": "icon-",
+      "unicode": "e6dd",
+      "unicode_decimal": 59101
+    },
+    {
+      "icon_id": "11673428",
+      "name": "id",
+      "font_class": "id",
+      "unicode": "e66c",
+      "unicode_decimal": 58988
+    },
+    {
+      "icon_id": "13479134",
+      "name": "复制",
+      "font_class": "B",
+      "unicode": "e6f9",
+      "unicode_decimal": 59129
+    },
+    {
+      "icon_id": "700839",
+      "name": "男生",
+      "font_class": "nansheng",
+      "unicode": "e648",
+      "unicode_decimal": 58952
+    },
+    {
+      "icon_id": "700840",
+      "name": "女生",
+      "font_class": "nvsheng",
+      "unicode": "e649",
+      "unicode_decimal": 58953
+    },
+    {
+      "icon_id": "6446006",
+      "name": "退出",
+      "font_class": "tianchongxing-",
+      "unicode": "e62a",
+      "unicode_decimal": 58922
+    },
+    {
+      "icon_id": "8562219",
+      "name": "icon_交友",
+      "font_class": "icon_jiaoyou",
+      "unicode": "e61b",
+      "unicode_decimal": 58907
+    }
+  ]
+}

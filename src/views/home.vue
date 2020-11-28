@@ -1,165 +1,109 @@
 <template>
  <div class="container">
-  <el-card >
-  <div slot="header">
-    <strong>主页</strong>
-    <div style="float:right">
-     <!-- <el-input v-model="name" size="small" style="width:200px;margin-right:10px" placeholder="请输入内容"></el-input> -->
-     <el-autocomplete
-          v-model="state"
-          :fetch-suggestions="querySearchAsync"
-          placeholder="请输入内容"
-          @select="handleSelect"
-          style="margin-right:20px"
-          size="small"
-        ></el-autocomplete>
-     <el-button type="primary" size="small" style="margin-left：20px" @click="inputSearch()">查询</el-button>
-    </div>
+  <div class="navigation">
+    <!-- <el-radio-group v-model="tabPosition" fill="#FFAB57">
+      <el-radio-button label="1">个人</el-radio-button>
+      <el-radio-button label="2">推荐</el-radio-button>
+    </el-radio-group> -->
+    <el-tabs type="card" v-model="activeName" style="width:100%">
+      <el-tab-pane name="1">
+        <span slot="label"><i class="el-icon-user-solid"></i>个人</span>
+        <myself />
+      </el-tab-pane>
+      <el-tab-pane name="2">
+         <span slot="label"><i class="iconfont icon-icon_jiaoyou"/> 推荐</span>
+        <match />
+      </el-tab-pane>
+    </el-tabs>
   </div>
-  <div>
-      <el-tabs v-model="activeName">
-        <el-tab-pane label="个人信息" name="first">
-          <myself @change="getActiveName" />
-        </el-tab-pane>
-        <el-tab-pane label="推荐" name="second">
-          <match @change="getActiveName" />
-        </el-tab-pane>
-        <el-tab-pane label="私信" name="third">
-          <message @numChange="getflag" v-if="flag === 'out'"/>
-          <message-detail @numChange="getflag" v-if="flag === 'in'"/>
-        </el-tab-pane>
-        <el-tab-pane label="匹配结果" name="forth">
-          <match-result :coResult="coResult" />
-        </el-tab-pane>
-     </el-tabs>
-  </div>
-  </el-card>
+  <!-- <myself v-if="tabPosition === '1'"  />
+  <match v-else /> -->
  </div>
 </template>
 
 <script>
-import echartBar from "@/components/echartsBar";
-import myself from "./myself";
-import message from "./message";
-import match from "./match";
-import messageDetail from "./messageDetail";
-import matchResult from "./matchResult";
-import { postAction, getAction  } from '@/api/manage'
-  export default {
-  components:{
-    echartBar,
+import myself from './myself'
+import match from './match'
+import { postAction, getAction } from '@/api/manage'
+export default {
+  components: {
     myself,
-    message,
-    match,
-    messageDetail,
-    matchResult
+    match
   },
-    data() {
-      return {
-        name:'',
-        state:'',
-        flag:'out',
-        activeName:'first',
-        queryResult:{},
-        filtList:[],
-        queryInput:'',
-        form:{
-          name:'',
-        },
-        login:'',
-        coResult:{},
-        option:{
-            tooltip: {
-                trigger: 'item',
-                formatter: '{a} <br/>{b}: {c} ({d}%)'
-            },
-            legend: {
-                orient: 'vertical',
-                left: 10,
-                data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
-            },
-            series: [
-                {
-                    name: '访问来源',
-                    type: 'pie',
-                    radius: ['50%', '70%'],
-                    avoidLabelOverlap: false,
-                    label: {
-                        show: false,
-                        position: 'center'
-                    },
-                    emphasis: {
-                        label: {
-                            show: true,
-                            fontSize: '30',
-                            fontWeight: 'bold'
-                        }
-                    },
-                    labelLine: {
-                        show: false
-                    },
-                    data: [
-                        {value: 335, name: '直接访问'},
-                        {value: 310, name: '邮件营销'},
-                        {value: 234, name: '联盟广告'},
-                        {value: 135, name: '视频广告'},
-                        {value: 1548, name: '搜索引擎'}
-                    ]
-                }
-            ]
-        }
-      };
-    },
-    methods: {
-      getflag(param){
-        this.flag = param
+  data () {
+    return {
+      name: '',
+      state: '',
+      flag: 'out',
+      tabPosition: '1',
+      activeName: '2',
+      queryResult: {},
+      filtList: [],
+      queryInput: '',
+      form: {
+        name: ''
       },
-      search(cb){
-        const url = '/profile/search'
-        postAction( url, { search: this.state }).then( res => {
+      msg: '这是被复制的内容',
+      login: '',
+      coResult: {}
+    }
+  },
+  methods: {
+    handleSelect () {},
+    search (cb) {
+      const url = '/profile/search'
+      postAction(url, { search: this.state }).then(res => {
         this.queryResult = res.data.msg.list
-        this.filtList = this.queryResult.map( item => {  return { value : `${this.queryInput}-${item.birth}-${item.city}-${item.sex }`, loginName: item.login_name } })
+        this.filtList = this.queryResult.map(item => { return { value: `${this.queryInput}-${item.birth}-${item.city}-${item.sex}`, loginName: item.login_name } })
         console.log('filtList', this.filtList)
         cb(this.filtList)
-        })
-        console.log('this.queryResult',this.queryResult)
-      },
-      getActiveName(param){
-        this.activeName = param
-      },
-      querySearchAsync(queryString, cb){
-        const value = [] 
-        this.queryInput = queryString
-        console.log('queryString',queryString)
-        this.search(cb)
-      },
-      he(){
-        const url = `/profile/co/${this.login}`
-        getAction(url).then( res => {
-            this.coResult = res.data.msg.result
-        })
-      },
-      handleSelect(item){
-         console.log(item);
-         const select = item.value.split('-')
-         this.state = select[0]
-         this.login = item.loginName
-      },
-      inputSearch(){
-          this.he()
-          this.activeName = 'forth'
-      }
+      })
+      console.log('this.queryResult', this.queryResult)
+    },
+    querySearchAsync (queryString, cb) {
+      const value = []
+      this.queryInput = queryString
+      console.log('queryString', queryString)
+      this.search(cb)
+    },
+    he () {
+      const url = `/profile/co/${this.login}`
+      getAction(url).then(res => {
+        this.coResult = res.data.msg.result
+      })
+    },
+    handleSelect (item) {
+      console.log(item)
+      const select = item.value.split('-')
+      this.state = select[0]
+      this.login = item.loginName
+    },
+    inputSearch () {
+      this.he()
+      this.activeName = 'forth'
     }
   }
+}
 </script>
-<style scoped>
+<style>
 .container {
    text-align: justify;
-   width: 90%;
+   /* width: 90%; */
    margin-right: auto;
    margin-left: auto;
+   /* border:2px solid#888888 ; */
+   border-radius:4px;
+   /* box-shadow: 2px 2px 2px #888888; */
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
    /* padding-left: 16px;
    padding-right: 16px; */
+}
+.navigation{
+  display: flex;
+  justify-content: center;
+  margin: 6px ;
 }
 .el-form-item__label{
   font-weight: bold;
@@ -173,6 +117,16 @@ import { postAction, getAction  } from '@/api/manage'
 }
 .el-form-item__content{
   font-size: 0.95em ;
+}
+.iconbox{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.iconStyle{
+  font-size: 24px;
+  margin: 0px 5px;
+  color:#F6903D;
 }
 .title{
   color: #409EFF;

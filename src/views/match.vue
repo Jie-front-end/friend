@@ -1,213 +1,129 @@
 <template>
-  <div style="padding:30px">
-    <!-- <div style="text-align:left">
-    <el-button type="primary" plain @click="toMatch">按主性格匹配</el-button>
-    <el-button type="warning" plain @click="toMatch">按反性格匹配</el-button>
-    </div> -->
-    <el-radio-group v-model="tabPosition" @change="changeTab" style="margin-bottom: 30px;">
-      <el-radio-button label="first"></el-radio-button>
-      <el-radio-button label="second"></el-radio-button>
-      <el-radio-button label="third"></el-radio-button>
-      <el-radio-button label="forth"></el-radio-button>
-    </el-radio-group>
-    <el-table
-      style="margin-top:30px"
-      v-loading="listLoading"
-      :data="list"
-      element-loading-text="Loading"
-      border
-      fit
-      highlight-current-row
-      :header-cell-style="{ background: '#f8f8f8' }"
-    >
-      <!-- <el-table-column align="center" label="ID" min-width="80">
-        <template slot-scope="scope">
-          <el-button type="text" @click="getUserDetail(scope.$index + 1 )">{{ scope.$index + 1}}</el-button>
-        </template>
-      </el-table-column> -->
-    <el-table-column
-      type="index"
-      width="50"
-      align="center">
-    </el-table-column>
-      <el-table-column label="昵称" min-width="120" align="center">
-        <template slot-scope="scope">
-          <el-button type="text" @click="getUserDetail(scope.row.nickname)">{{scope.row.nickname }}</el-button>
-        </template>
-      </el-table-column>
-      <el-table-column label="性别" min-width="100" align="center">
-        <template slot-scope="scope">
-          {{ scope.row.sex }}
-        </template>
-      </el-table-column>
-      <!-- <el-table-column label="出生时间" min-width="160" align="center">
-        <template slot-scope="scope">
-          {{ scope.row.date }}
-        </template>
-      </el-table-column> -->
-      <el-table-column label="城市" min-width="140" align="center">
-        <template slot-scope="scope">
-          {{ scope.row.province }}
-        </template>
-      </el-table-column>
-      <!-- <el-table-column label="婚否" min-width="100" align="center">
-        <template slot-scope="scope">
-          {{ scope.row.marriage }}
-        </template>
-      </el-table-column>
-      <el-table-column label="工作" min-width="120" align="center">
-        <template slot-scope="scope">
-          {{ scope.row.job }}
-        </template>
-      </el-table-column> -->
-    </el-table>
-    <el-dialog title="用户详情" :visible.sync="dialogVisible" width="750px">
-    <!-- <p class="block-title bgColor">预约信息</p> -->
-    <div style="text-align:right">
-      <el-button  type="warning" plain @click="toMatch">私信</el-button>
-    </div>
-    <el-row style="margin-left:50px">
-      <el-col :md="8" :sm="12">
-        <div class="content-wrap">
-          <div class="contentTitle">昵称</div>
-          <div class="content">{{ form.nickname }}</div>
+  <div class="wrapper">
+    <el-card class="box-card" v-for="(item,index) in tableList" :key="index" shadow="always">
+        <div class="card-item-head">{{item.title}}</div>
+        <div>
+      <el-carousel height="300px" :autoplay='false'>
+        <el-carousel-item v-for="item in 2" :key="item">
+          <div class="allInfo">
+            <div class="userName">
+                <i class="iconfont icon-nansheng iconSize" />
+                <span class="userName-title"> 李大力</span>
+                <el-button round size="small" style="color:#FF6B3B" @click="gotoMatch"><i class="iconfont icon-aixin"/></el-button>
+                <el-button round size="small" style="color:#FF6B3B" @click="gotoMessage"><i class="iconfont icon-sixin"/></el-button>
+            </div>
+            <div class="userInfo">
+              <div class="info-title">昵称:</div>
+              <span class="info">{{form.nick}}</span>
+              <div class="info-title">性别:</div>
+              <span>{{form.sex}}</span>
+              <div class="info-title">城市:</div>
+              <span>{{form.sex}}</span>
+              <div class="info-title">生日:</div>
+              <span>{{form.sex}}</span>
+              <div class="info-title">八字:</div>
+              <span>{{form.sex}}</span>
+              <div class="info-title">五行主宰:</div>
+              <span>{{form.sex}}</span>
+              <div class="info-title">职业:</div>
+              <span>{{form.career}}</span>
+              <div class="info-title">个性签名:</div>
+              <span>{{form.birth_year}}</span>
+            </div>
+          </div>
+        </el-carousel-item>
+      </el-carousel>
         </div>
-      </el-col>
-      <el-col :md="8" :sm="12">
-        <div class="content-wrap">
-          <div class="contentTitle">性别</div>
-          <div class="content">{{ form.sex }}</div>
-        </div>
-      </el-col>
-      <el-col :md="8" :sm="12">
-        <div class="content-wrap">
-          <div class="contentTitle">出生时间</div>
-          <div class="content">{{ form.date }}</div>
-        </div>
-      </el-col>
-      <el-col :md="8" :sm="12">
-        <div class="content-wrap">
-          <div class="contentTitle">城市</div>
-          <div class="content">{{ form.city }}</div>
-        </div>
-      </el-col>
-      <!-- <el-col :md="8" :sm="12">
-        <div class="content-wrap">
-          <div class="contentTitle">婚否</div>
-          <div class="content">{{ form.marriage }}</div>
-        </div>
-      </el-col> -->
-      <el-col :md="8" :sm="12">
-        <div class="content-wrap">
-          <div class="contentTitle">十神性格</div>
-          <div class="content">{{ form.advantage }}</div>
-        </div>
-      </el-col>
-      <el-col :md="8" :sm="12">
-        <div class="content-wrap">
-          <div class="contentTitle">缺点</div>
-          <div class="content">{{ form.disadvantage }}</div>
-        </div>
-      </el-col>
-      <el-col :md="8" :sm="12">
-        <div class="content-wrap">
-          <div class="contentTitle">其他</div>
-          <div class="content">{{ form.other_coop }}</div>
-        </div>
-      </el-col>
-      <!-- <el-col :md="8" :sm="12">
-        <div class="content-wrap">
-          <div class="contentTitle">平台</div>
-          <div class="content">{{ form.platform }}</div>
-        </div>
-      </el-col>
-      <el-col :md="8" :sm="12">
-        <div class="content-wrap">
-          <div class="contentTitle">IP</div>
-          <div class="content">{{ form.ip }}</div>
-        </div>
-      </el-col>
-      <el-col :md="8" :sm="12">
-        <div class="content-wrap">
-          <div class="contentTitle">选择谁</div>
-          <div class="content">{{ form.choose }}</div>
-        </div>
-      </el-col>
-      <el-col :md="8" :sm="12">
-        <div class="content-wrap">
-          <div class="contentTitle">提交时间</div>
-          <div class="content">{{ form.calendar }}</div>
-        </div>
-      </el-col> -->
-      </el-row>
-    </el-dialog>
+   </el-card>
   </div>
 </template>
 <script>
 import { postAction, getAction } from '@/api/manage'
-
 export default {
-  data() {
+  data () {
     return {
       list: [
-        {nickname:'a'}
+        { nickname: 'a' }
+      ],
+      tableList: [
+        { title: '谁和你最匹配？' },
+        { title: '性格要合哦~' },
+        { title: '性格也要互补哦~' },
+        { title: '五行也很重要呢' }
       ],
       listLoading: false,
-      dialogVisible:false,
-      tableData:{},
-      first:[],
-      second:[],
-      third:[],
-      forth:[],
-      tabPosition:''
+      dialogVisible: false,
+      tableData: {},
+      first: [],
+      second: [],
+      third: [],
+      forth: [],
+      tabPosition: '',
+      sex: 1,
+      form: {}
     }
   },
-  created() {
+  created () {
     this.fetchData()
   },
-  methods:{
-    changeTab(){
-      if(this.tabPosition === 'first') {
-        this.tableData = this.tableData.first
-      } else if(this.tabPosition === 'second'){
-        this.tableData = this.tableData.second
-      } else if(this.tabPosition === 'third'){
-        this.tableData = this.tableData.third
-      } else {
-        this.tableData = this.tableData.forth
-      }
+  methods: {
+    gotoMatch () {
+      this.$router.push({ name: 'MatchResult' })
     },
-    toMatch(){
-      this.dialogVisible = false
-      this.$emit('change','third')
+    gotoMessage () {
+      this.$router.push({ name: 'messageDetail' })
     },
-    fetchData(){
+    fetchData () {
       this.listLoading = true
-      const url = `/profile/recommend`
-      getAction(url).then( res => {
-          this.tableData = res.data.msg
+      const url = '/profile/recommend'
+      getAction(url).then(res => {
+        this.tableData = res.data.msg
       })
-       this.listLoading = false
+      this.listLoading = false
     },
-    getUserDetail(id){
+    getUserDetail (id) {
       this.dialogVisible = true
       // const url = 'admin/userdetail/' + id
-        const url = `/profile/detail/`+ id
-        getAction(url).then( res => {
-            this.form = res.data.msg
-        })
+      const url = '/profile/detail/' + id
+      getAction(url).then(res => {
+        this.form = res.data.msg
+      })
     }
   }
 }
 </script>
-<style scoped>
-.content-wrap {
+<style >
+.el-carousel__item {
   font-size: 14px;
-  font-weight: 400;
+  opacity: 0.75;
+  margin: 0;
+  background:#FFE0C7
+}
+.allInfo{
   display: flex;
+  flex-direction: column;
+  padding: 10px 20px;
+}
+.userName{
+  height: 40px;
+  display: flex;
+  justify-content: center;
   align-items: center;
-  margin-right:10px ;
-  justify-content: flex-start;
+  position: relative;
+}
+.userName-title{
+  font-size: 18px;
+  font-weight: 600;
+  margin-right: 10px;
+}
+.userInfo{
+  padding: 0px 20px;
+}
+.info-title{
+  font-size: 14px;
+  font-weight: 500;
+  margin:0px 0px 10px 0px;
+  font-family: DFKai-SB;
 }
 .content {
   color: rgba(0, 0, 0, 0.65);
@@ -232,9 +148,7 @@ export default {
     position: relative;
     top: -0.5px;
   }
-  .pb20 {
-    padding-bottom: 20px;
+  .iconSize{
+    font-size: 32px;
   }
 </style>
-
-

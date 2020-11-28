@@ -1,71 +1,90 @@
 <template>
- <div class="container">
-    <div style="text-align:right">
-      <!-- <el-button  type="warning" plain @click="toMatch">私信</el-button> -->
+ <div class="wrapper">
+    <!-- <div style="text-align:right">
+      <el-button plain @click="toMatch">修改</el-button>
+    </div> -->
+  <el-card class="box-card" shadow="false" >
+    <div slot="header" class="head-box">
+        <span class="card-head">匹配结果</span>
+         <el-button style="float: left; padding: 3px 4px;margin-right:10px;color:#FF6B3B" @click="$router.push({name: 'Home'})" icon="el-icon-caret-left" circle></el-button>
     </div>
-    <el-form class="mt20" ref="coResult" :model="coResult" label-width="200px" label-position="top" label-suffix=":">
-      <el-form-item label="本人主性格">
-        <span>{{coResult.charactor.female_char}}</span>
-      </el-form-item>
-      <el-form-item label="本人缺少性格">
-        <span>{{coResult.charactor.female_char}}</span>
-      </el-form-item>
-      <el-form-item label="本人应注意">
-        <span>{{coResult.charactor.female_char}}</span>
-      </el-form-item>
-      <el-form-item label="匹配者主性格">
-        <span>{{coResult.charactor.male_char}}</span>
-      </el-form-item>
-      <el-form-item label="匹配者缺少性格">
-        <span>{{coResult.charactor.male_nonchar}}</span>
-      </el-form-item>
-      <el-form-item label="匹配者应注意">
-        <span>{{coResult.charactor.male_attention}}</span>
-      </el-form-item>
-      <el-form-item label="匹配程度">
-        <span>{{coResult.harmony.harmony_words}}</span>
-      </el-form-item>
+    <el-card class="box-card" shadow="always">
+        <div class="card-item-head">匹配程度</div>
+        <div>
+           <span>{{form.user_adv}}</span>
+        </div>
+   </el-card>
+    <el-card class="box-card" shadow="always">
+        <div class="card-item-head">本人主性格</div>
+        <div>
+           <span>{{form.user_adv}}</span>
+        </div>
+   </el-card>
+    <el-card class="box-card" shadow="always">
+        <div class="card-item-head">匹配者主性格</div>
+        <div>
+           <span>{{form.user_adv}}</span>
+        </div>
+   </el-card>
+    <el-card class="box-card" shadow="always">
+        <div class="card-item-head">本人缺少性格</div>
+        <div>
+           <span>{{form.user_adv}}</span>
+        </div>
+   </el-card>
+    <el-card class="box-card" shadow="always">
+        <div class="card-item-head">匹配者缺少性格</div>
+        <div>
+           <span>{{form.user_adv}}</span>
+        </div>
+   </el-card>
+    <el-card class="box-card" shadow="always">
+        <div class="card-item-head">本人应注意</div>
+        <div>
+           <span>{{form.user_adv}}</span>
+        </div>
+   </el-card>
+    <el-card class="box-card" shadow="always">
+        <div class="card-item-head">匹配者应注意</div>
+        <div>
+           <span>{{form.user_adv}}</span>
+        </div>
+   </el-card>
+    <!-- <el-form class="mt20" ref="coResult" :model="coResult" label-width="200px" label-position="top" label-suffix=":">
       <el-form-item label="事业">
         <p>本人：{{coResult.cooperation.female_char}}</p>
         <p>匹配者：{{coResult.cooperation.male_char}}</p>
       </el-form-item>
-    </el-form>
+    </el-form> -->
+  </el-card>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import { postAction,getAction } from '@/api/manage'
-  export default {
-    props:{
-     coResult:{
-         type: Object,
-         default:()=>{},
-     }
-    },
-    data() {
-      return {
-
-      };
-    },
-    computed:{
-
-    },
-    mounted(){
-    },
-    methods: {
+import { postAction, getAction } from '@/api/manage'
+export default {
+  props: {
+    coResult: {
+      type: Object,
+      default: () => {}
     }
+  },
+  data () {
+    return {
+      form: {}
+    }
+  },
+  computed: {
+
+  },
+  mounted () {
+  },
+  methods: {
   }
+}
 </script>
 <style scoped>
-.container {
-   width: 80%;
-   text-align: justify;
-   border: 2px solid gray;
-   padding:30px;
-   /* padding-left: 16px;
-   padding-right: 16px; */
-}
 .el-form-item__label{
   font-weight: bold;
   font-size: 1em ;

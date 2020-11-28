@@ -2,7 +2,7 @@
  <div class="center">
   <el-card class="card">
   <div slot="header">
-    <strong>登录</strong>
+    <strong><i class="iconfont icon-icon_jiaoyou iconStyle"/> 登录</strong>
   </div>
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
       <el-form-item label="用户名" prop="login_name">
@@ -21,13 +21,13 @@
 </template>
 
 <script>
-import {postAction, getAction} from '@/api/manage'
-  export default {
-    data() {
-      return {
+import { postAction, getAction } from '@/api/manage'
+export default {
+  data () {
+    return {
       ruleForm: {
         login_name: '',
-        login_pwd:''
+        login_pwd: ''
       },
       rules: {
         login_pwd: [
@@ -37,31 +37,31 @@ import {postAction, getAction} from '@/api/manage'
           { required: true, message: '请输入用户名', trigger: 'blur' }
         ]
       }
-      };
-    },
-    methods: {
-      submitForm(){
+    }
+  },
+  methods: {
+    submitForm () {
       const url = '/user/login'
-        this.$refs.ruleForm.validate( (valid) => {
-          if(valid){
+      this.$router.push({ name: 'Home' })
+      this.$refs.ruleForm.validate((valid) => {
+        if (valid) {
+          this.$store.commit('SET_LOGIN_NAME', this.ruleForm.login_name)
+          postAction(url, this.ruleForm).then(res => {
+            if (res.data.code == 200) {
               this.$store.commit('SET_LOGIN_NAME', this.ruleForm.login_name)
-              postAction( url, this.ruleForm).then( res => {
-              if( res.data.code == 200) {
-                this.$store.commit('SET_LOGIN_NAME', this.ruleForm.login_name)
-                this.$router.push({name: 'Home'})
-              }
-              else{
-                this.$message.warning(res.data.msg)
-              }
-            })
-         }
-        })
-      },
-      register() {
-        this.$router.push({name: 'Register'})
-      }
+              this.$router.push({ name: 'Home' })
+            } else {
+              this.$message.warning(res.data.msg)
+            }
+          })
+        }
+      })
+    },
+    register () {
+      this.$router.push({ name: 'Register' })
     }
   }
+}
 </script>
 <style scoped>
 .center{
@@ -73,5 +73,9 @@ import {postAction, getAction} from '@/api/manage'
 .card{
   width: 80vh;
   padding: 30px;
+}
+.iconStyle{
+  color:#F6903D;
+  font-size: 18px;
 }
 </style>
