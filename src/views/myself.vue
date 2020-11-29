@@ -12,16 +12,16 @@
         <span class="info">{{form.nick}}</span>
         <div class="info-title">性别:</div>
         <span>{{form.sex}}</span>
-        <div class="info-title">生日:</div>
-        <span>{{form.sex}}</span>
+        <!-- <div class="info-title">生日:</div>
+        <span>{{form.sex}}</span> -->
         <div class="info-title">八字:</div>
-        <span>{{form.sex}}</span>
+        <span>{{form.birth_year}} {{form.birth_month}} {{form.birth_day}} {{form.birth_hour}}</span>
         <div class="info-title">五行主宰:</div>
-        <span>{{form.sex}}</span>
+        <span>{{form.five_elements}}</span>
         <div class="info-title">职业:</div>
         <span>{{form.career}}</span>
         <div class="info-title">个性签名:</div>
-        <span>{{form.birth_year}}</span>
+        <span>{{form.sign}}</span>
    </el-card>
     <el-card class="box-card" shadow="always">
         <div class="card-item-head">主性格</div>
@@ -38,12 +38,12 @@
     <el-card class="box-card" shadow="always">
         <div class="card-item-head">流年运势</div>
         <div>
-        <!-- <el-tabs v-model="activeName" type="card">
+        <el-tabs v-model="activeName" type="card">
          <el-tab-pane v-for="(item,index) in form.lucky" :key="index" :label="item.year" :name="index">
             <p>{{item.emotion}}</p>
             <p>{{item.leader}}</p>
          </el-tab-pane>
-      </el-tabs> -->
+      </el-tabs>
         </div>
    </el-card>
     <el-card class="box-card" shadow="hover">
@@ -74,7 +74,7 @@
           { required: true, message: '个性签名不能为空'},
         ]"
       >
-        <el-input type="textarea" v-model="editForm.info"></el-input>
+        <el-input type="textarea" v-model="editForm.sign"></el-input>
       </el-form-item>
       <el-form-item>
       </el-form-item>
@@ -103,7 +103,7 @@ export default {
       },
       editForm: {
         career: '',
-        info: ''
+        sign: ''
       },
       editVisual: false
       // option:{
@@ -161,7 +161,15 @@ export default {
     submitForm () {
       this.$refs.editForm.validate((valid) => {
         if (valid) {
-          this.editVisual = false
+          const url = '/user/info'
+          postAction(url,{career:this.editForm.career,sign:this.editForm.career}).then(res => {
+            if (res.data.code == 200) {
+              this.$message.success(res.data.msg)
+              this.editVisual = false
+            } else {
+              this.$message.warning(res.data.msg)
+            }             
+          })
         } else {
           console.log('error submit!!')
           return false

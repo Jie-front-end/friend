@@ -11,43 +11,44 @@
     <el-card class="box-card" shadow="always">
         <div class="card-item-head">匹配程度</div>
         <div>
-           <span>{{form.user_adv}}</span>
+           <p>匹配得分：{{coResult.harmony.harmony_score}}</p>
+           <span>{{coResult.harmony.harmony_words}}</span>
         </div>
    </el-card>
     <el-card class="box-card" shadow="always">
         <div class="card-item-head">本人主性格</div>
         <div>
-           <span>{{form.user_adv}}</span>
+           <span>{{coResult.harmony.female_char}}</span>
         </div>
    </el-card>
     <el-card class="box-card" shadow="always">
         <div class="card-item-head">匹配者主性格</div>
         <div>
-           <span>{{form.user_adv}}</span>
+           <span>{{coResult.harmony.male_char}}</span>
         </div>
    </el-card>
     <el-card class="box-card" shadow="always">
         <div class="card-item-head">本人缺少性格</div>
         <div>
-           <span>{{form.user_adv}}</span>
+           <span>{{coResult.harmony.female_nonchar}}</span>
         </div>
    </el-card>
     <el-card class="box-card" shadow="always">
         <div class="card-item-head">匹配者缺少性格</div>
         <div>
-           <span>{{form.user_adv}}</span>
+           <span>{{coResult.harmony.male_nonchar}}</span>
         </div>
    </el-card>
     <el-card class="box-card" shadow="always">
         <div class="card-item-head">本人应注意</div>
         <div>
-           <span>{{form.user_adv}}</span>
+           <span>{{coResult.harmony.female_attention}}</span>
         </div>
    </el-card>
     <el-card class="box-card" shadow="always">
         <div class="card-item-head">匹配者应注意</div>
         <div>
-           <span>{{form.user_adv}}</span>
+           <span>{{coResult.harmony.male_attention}}</span>
         </div>
    </el-card>
     <!-- <el-form class="mt20" ref="coResult" :model="coResult" label-width="200px" label-position="top" label-suffix=":">
@@ -72,15 +73,25 @@ export default {
   },
   data () {
     return {
-      form: {}
+      form: {},
+      coResult:{}
     }
   },
   computed: {
-
+     matchName(){
+       return this.$router.query.matchName 
+     }
   },
   mounted () {
+    this.he()
   },
   methods: {
+    he () {
+      const url = `/profile/co/${this.matchName}`
+      getAction(url).then(res => {
+        this.coResult = res.data.msg.result
+      })
+    },
   }
 }
 </script>

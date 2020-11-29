@@ -4,13 +4,13 @@
       <div class="ml10">
         60条
       </div>
-      <el-button style="margin-bottom:5px" size="small" @click="hasRead">全部已读</el-button>
+      <el-button style="margin-bottom:5px" size="small">全部已读</el-button>
     </div>
     <el-card class="card">
       <div>
         <div v-for="(item, index) in massageList" :key="index" >
           <div class="body-item">
-            <div style="margin-left:15px" class="name-position" @click="detail">
+            <div style="margin-left:15px" class="name-position" @click="detail(item.name)">
               {{item.name}}
               <!-- <span class="right-corner">1</span> -->
             </div>
@@ -52,8 +52,8 @@ export default {
       page: 1,
       name: '',
       massageList: [
-        { name: '李大力', num: 1 },
-        { name: '苏大强', num: 0 }
+        { name: '李大力', num: 1, time:'' },
+        { name: '苏大强', num: 0, time:''}
       ],
       twoMassageList: [
         { name: '李大力', message: '你好', status: 'send' },
@@ -67,18 +67,15 @@ export default {
       form: {}
     }
   },
-  created () {
+  mounted () {
     this.box()
   },
   methods: {
     toMatch () {
 
     },
-    detail () {
-      this.$router.push({ name: 'MessageDetail' })
-    },
-    dialogVisual () {
-
+    detail (name) {
+      this.$router.push({ name: 'MessageDetail' , query:{name}})
     },
     hasRead () {},
     box () {

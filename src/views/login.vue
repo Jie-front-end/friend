@@ -42,7 +42,6 @@ export default {
   methods: {
     submitForm () {
       const url = '/user/login'
-      this.$router.push({ name: 'Home' })
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
           this.$store.commit('SET_LOGIN_NAME', this.ruleForm.login_name)

@@ -1,10 +1,10 @@
 <template>
   <div class="wrapper">
-    <el-card class="box-card" v-for="(item,index) in tableList" :key="index" shadow="always">
-        <div class="card-item-head">{{item.title}}</div>
+    <el-card class="box-card" v-for="(tableItem,index) in tableList" :key="index" shadow="always">
+        <div class="card-item-head">{{tableList[index].title}}</div>
         <div>
       <el-carousel height="300px" :autoplay='false'>
-        <el-carousel-item v-for="item in 2" :key="item">
+        <el-carousel-item v-for="item in tableItem" :key="item">
           <div class="allInfo">
             <div class="userName">
                 <i class="iconfont icon-nansheng iconSize" />
@@ -67,17 +67,25 @@ export default {
     this.fetchData()
   },
   methods: {
-    gotoMatch () {
-      this.$router.push({ name: 'MatchResult' })
+    gotoMatch (name) {
+      this.$router.push({ name: 'MatchResult', query:{name:name} })
     },
-    gotoMessage () {
-      this.$router.push({ name: 'messageDetail' })
+    gotoMessage (name) {
+      this.$router.push({ name: 'messageDetail',query:{name:name} })
     },
     fetchData () {
       this.listLoading = true
       const url = '/profile/recommend'
       getAction(url).then(res => {
-        this.tableData = res.data.msg
+        this.tableData = []
+        this.first = res.data.msg.first,
+        this.tableData.push(this.first)
+        this.second = res.data.msg.second,
+        this.tableData.push(this.second)
+        this.third = res.data.msg.third,
+        this.tableData.push(this.third)
+        this.forth = res.data.msg.forth,
+        this.tableData.push(this.forth)
       })
       this.listLoading = false
     },

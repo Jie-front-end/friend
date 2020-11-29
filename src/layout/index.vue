@@ -51,7 +51,17 @@ export default {
     }
   },
   methods: {
-    loginOut () {},
+    loginOut () {
+      const url = '/logout'
+      getAction(url).then(res => {
+            if (res.data.code == 200) {
+              this.$message.success(res.data.msg)
+              this.$router.push({ name: 'Home' })
+            } else {
+              this.$message.warning('退出失败')
+            }
+      })
+    },
     handleClick (command) {
       if (command === '1') {
         this.messageVisial = true
@@ -84,15 +94,8 @@ export default {
       console.log('queryString', queryString)
       this.search(cb)
     },
-    he () {
-      const url = `/profile/co/${this.login}`
-      getAction(url).then(res => {
-        this.coResult = res.data.msg.result
-      })
-    },
     inputSearch () {
-      // this.he()
-      this.$router.push({ name: 'MatchResult' })
+      this.$router.push({ name: 'MatchResult', query:{ matchName: this.login} })
     }
   }
 }

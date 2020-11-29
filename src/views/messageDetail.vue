@@ -12,8 +12,8 @@
            </div>
         </div>
         <div style="display:flex; margin-top:20px">
-          <el-input v-model="name" style="width:200px;margin-right:10px;flex:1" placeholder="请输入内容"></el-input>
-          <el-button type="primary" size="small" style="margin-left：20px" @click="goBack()">发送</el-button>
+          <el-input v-model="sendText" style="width:200px;margin-right:10px;flex:1" placeholder="请输入内容"></el-input>
+          <el-button type="primary" size="small" style="margin-left：20px" @click="send()">发送</el-button>
         </div>
       </el-card>
   </div>
@@ -34,7 +34,8 @@ export default {
       ],
       listLoading: false,
       dialogVisible: false,
-      form: {}
+      form: {},
+      sendText:''
     }
   },
   computed: {
@@ -43,30 +44,18 @@ export default {
     }
   },
   mounted () {
-    this.fetchData()
+    this.message()
   },
   methods: {
-    toMatch () {
-
-    },
-    detail () {
-      this.$message.warning('按键111')
-    },
-    dialogVisual () {
-
-    },
-    goBack () {
-      this.$emit('numChange', 'out')
-    },
     message () {
-      const url = '/message/content/adminzxz'
+      const url = `/message/content/${this.name}`
       getAction(url).then(res => {
         console.log('res.data', res.data)
       })
     },
     send () {
       const url = '/message/send'
-      postAction(url, { login_name: 'adminzxz', content: '你好' }).then(res => {
+      postAction(url, { login_name: this.name, text:this.sendText  }).then(res => {
         console.log('res.data', res.data)
       })
     }
