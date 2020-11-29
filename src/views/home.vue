@@ -49,7 +49,6 @@ export default {
     }
   },
   methods: {
-    handleSelect () {},
     search (cb) {
       const url = '/profile/search'
       postAction(url, { search: this.state }).then(res => {
@@ -77,10 +76,6 @@ export default {
       const select = item.value.split('-')
       this.state = select[0]
       this.login = item.loginName
-    },
-    inputSearch () {
-      this.he()
-      this.activeName = 'forth'
     }
   }
 }

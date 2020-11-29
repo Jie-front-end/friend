@@ -48,7 +48,7 @@ const routes = [
     children: [
       {
         path: 'index',
-        name: 'messageDetail',
+        name: 'MessageDetail',
         component: () => import(/* webpackChunkName: "about" */ '../views/messageDetail.vue')
       }
     ]

@@ -1,13 +1,15 @@
 <template>
-  <div style="padding:30px">
+  <div>
+     <el-button type="text" style="color: rgba(0, 0, 0, 0.65);" @click="$router.push({name: 'MessageList'})"><i class="el-icon-arrow-left" /></el-button>
       <el-card class="card">
-        <div class="lr">
-            <div v-for="(item, index) in twoMassageList" :key="index" >
-                <el-button plain style="width:100%;margin-bottom:10px;text-align:left">
-                  {{item.name}} :
-                  {{item.message}}
-                </el-button>
-            </div>
+        <div v-for="(item, index) in massageList" :class="[item.status === 'receive'?'box-left':'box-right']" :key="index" >
+           <div class="big-box">
+              <div class="timeFont">{{item.time}}</div>
+              <div class="box-bord">
+                {{item.name}} :
+                {{item.message}}
+              </div>
+           </div>
         </div>
         <div style="display:flex; margin-top:20px">
           <el-input v-model="name" style="width:200px;margin-right:10px;flex:1" placeholder="请输入内容"></el-input>
@@ -23,14 +25,9 @@ export default {
   data () {
     return {
       page: 1,
-      name: '',
       massageList: [
-        { name: '李大力', num: 1 },
-        { name: '苏大强', num: 0 }
-      ],
-      twoMassageList: [
-        { name: '李大力', message: '你好', status: 'send' },
-        { name: '苏大强', message: '你好', status: 'receive' }
+        { name: '李大力', num: 1, time: '2020-10-12 9:00', status: 'receive', message: '你好' },
+        { name: '苏大强', num: 0, time: '2020-10-12 9:10', status: 'send', message: '很高兴认识你！你是哪里人？' }
       ],
       list: [
         { name: '1' }
@@ -40,9 +37,14 @@ export default {
       form: {}
     }
   },
-  // created() {
-  //   this.fetchData()
-  // },
+  computed: {
+    name () {
+      return this.$route.query.name
+    }
+  },
+  mounted () {
+    this.fetchData()
+  },
   methods: {
     toMatch () {
 
@@ -72,12 +74,30 @@ export default {
 }
 </script>
 <style scoped>
-.lr{
+  .box-left{
     display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-
-}
+    justify-content: flex-start;
+  }
+  .box-right{
+    display: flex;
+    justify-content: flex-end;
+  }
+  .timeFont{
+    margin-left: 8px;
+    font-size: 12px;
+  }
+  .big-box{
+    width: 50%;
+    margin-bottom: 10px;
+  }
+  .box-bord{
+    border: 1px solid #CED4DE;
+    display: flex;
+    align-items: center;
+    padding: 10px 10px;
+    margin: 5px 0px;
+    border-radius: 12px;
+  }
   .fr{
      align-self:flex-end
   }

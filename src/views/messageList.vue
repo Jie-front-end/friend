@@ -1,10 +1,10 @@
 <template>
-   <div class="wrapper">
+   <div>
     <div style="display:flex;justify-content:space-between">
-      <div>60条</div>
-      <div style="text-align:right">
-        <el-button style="margin-bottom:5px" size="small" @click="hasRead">全部已读</el-button>
+      <div class="ml10">
+        60条
       </div>
+      <el-button style="margin-bottom:5px" size="small" @click="hasRead">全部已读</el-button>
     </div>
     <el-card class="card">
       <div>
@@ -16,7 +16,7 @@
             </div>
             <div style="margin-right:15px">
               <span class="small-font">7天前</span>
-              <el-button @click="dialogVisual" size='small' type="text">删除</el-button>
+              <!-- <el-button @click="dialogVisual" size='small' type="text">删除</el-button> -->
             </div>
           </div>
           <el-divider></el-divider>
@@ -24,7 +24,6 @@
               {{item.name}}
             <el-tag :type="item.num > 0 ? 'warning' : 'success'">{{item.num}}</el-tag>
             </el-button> -->
-
         </div>
       </div>
       <!-- <div v-else>
@@ -76,7 +75,7 @@ export default {
 
     },
     detail () {
-      this.$emit('numChange', 'in')
+      this.$router.push({ name: 'MessageDetail' })
     },
     dialogVisual () {
 
