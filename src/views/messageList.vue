@@ -52,8 +52,8 @@ export default {
       page: 1,
       name: '',
       massageList: [
-        { name: '李大力', num: 1, time:'' },
-        { name: '苏大强', num: 0, time:''}
+        { name: '李大力', num: 1, time: '' },
+        { name: '苏大强', num: 0, time: '' }
       ],
       twoMassageList: [
         { name: '李大力', message: '你好', status: 'send' },
@@ -75,7 +75,7 @@ export default {
 
     },
     detail (name) {
-      this.$router.push({ name: 'MessageDetail' , query:{name}})
+      this.$router.push({ name: 'MessageDetail', params: { name } })
     },
     hasRead () {},
     box () {

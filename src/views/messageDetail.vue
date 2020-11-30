@@ -19,7 +19,7 @@
   </div>
 </template>
 <script>
-import { postAction } from '@/api/manage'
+import { postAction, getAction } from '@/api/manage'
 
 export default {
   data () {
@@ -35,12 +35,12 @@ export default {
       listLoading: false,
       dialogVisible: false,
       form: {},
-      sendText:''
+      sendText: ''
     }
   },
   computed: {
     name () {
-      return this.$route.query.name
+      return this.$route.params.name
     }
   },
   mounted () {
@@ -48,14 +48,14 @@ export default {
   },
   methods: {
     message () {
-      const url = `/message/content/${this.name}`
-      getAction(url).then(res => {
+      const url = '/message/content'
+      postAction(url, { name: this.name }).then(res => {
         console.log('res.data', res.data)
       })
     },
     send () {
       const url = '/message/send'
-      postAction(url, { login_name: this.name, text:this.sendText  }).then(res => {
+      postAction(url, { login_name: this.name, text: this.sendText }).then(res => {
         console.log('res.data', res.data)
       })
     }

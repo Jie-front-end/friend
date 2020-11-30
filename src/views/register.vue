@@ -68,64 +68,62 @@
 
 <script>
 import { postAction } from '@/api/manage'
-  export default {
-    data() {
-      return {
-        form: {
-          login_name: '',
-          pwd: '',
-          nickname: '',
-          sex: '',
-          // contact: '',
-          date: '',
-          time:'',
-          city: '',
-          // marriage: '',
-          // job: ''
-        },
-        rules: {
-          login_name: [{required: true, message:"输入不能为空", trigger: 'blur' }],
-          pwd: [{required: true, message:"输入不能为空", trigger: 'blur' }],
-          nickname: [{required: true, message:"输入不能为空", trigger: 'blur' }],
-          sex: [{required: true, message:"输入不能为空", trigger: 'blur' }],
-          // contact: [{required: true, message:"输入不能为空", trigger: 'blur' }],
-          date: [{required: true, message:"输入不能为空", trigger: 'blur' }],
-          time: [{required: true, message:"输入不能为空", trigger: 'blur' }],
-          city: [{required: true, message:"输入不能为空", trigger: 'blur' }]
-          // job: [{required: true, message:"输入不能为空", trigger: 'blur' }]
-        }
-      };
-    },
-    methods: {
-      onSubmit() {
-        const url = '/user/register'
-        this.$refs.form.validate((valid) => {
-          if (valid) {
-            const date = this.form.date
-            const time = this.form.time
-            this.form.year = date.split("-")[0]
-            this.form.month = date.split("-")[1]
-            this.form.day = date.split("-")[2]
-            this.form.hour = date.split(":")[0]
-            this.form.minute = date.split(":")[1]
-            postAction( url, this.form).then( res => {
-                if( res.code == 200) {
-                  this.$message.success(res.mag)
-                  this.$router.push({name: 'Login'})
-                }
-                else{
-                  this.$message.warning(res.mag)
-                }
-            })
-
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
+export default {
+  data () {
+    return {
+      form: {
+        login_name: '',
+        pwd: '',
+        nickname: '',
+        sex: '',
+        // contact: '',
+        date: '',
+        time: '',
+        city: ''
+        // marriage: '',
+        // job: ''
       },
+      rules: {
+        login_name: [{ required: true, message: '输入不能为空', trigger: 'blur' }],
+        pwd: [{ required: true, message: '输入不能为空', trigger: 'blur' }],
+        nickname: [{ required: true, message: '输入不能为空', trigger: 'blur' }],
+        sex: [{ required: true, message: '输入不能为空', trigger: 'blur' }],
+        // contact: [{required: true, message:"输入不能为空", trigger: 'blur' }],
+        date: [{ required: true, message: '输入不能为空', trigger: 'blur' }],
+        time: [{ required: true, message: '输入不能为空', trigger: 'blur' }],
+        city: [{ required: true, message: '输入不能为空', trigger: 'blur' }]
+        // job: [{required: true, message:"输入不能为空", trigger: 'blur' }]
+      }
+    }
+  },
+  methods: {
+    onSubmit () {
+      const url = '/user/register'
+      this.$refs.form.validate((valid) => {
+        if (valid) {
+          const date = this.form.date
+          const time = this.form.time
+          this.form.year = date.split('-')[0]
+          this.form.month = date.split('-')[1]
+          this.form.day = date.split('-')[2]
+          this.form.hour = date.split(':')[0]
+          this.form.minute = date.split(':')[1]
+          postAction(url, this.form).then(res => {
+            if (res.code == 200) {
+              this.$message.success(res.mag)
+              this.$router.push({ name: 'Login' })
+            } else {
+              this.$message.warning(res.mag)
+            }
+          })
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
     }
   }
+}
 </script>
 <style >
 .container {

@@ -9,12 +9,13 @@
           style="margin-right:8px; width:72%"
         > <i slot="prefix" class="el-input__icon el-icon-search"></i>
      </el-autocomplete>
-    <el-button icon="el-icon-search"  @click="inputSearch()" circle style="color:#FF6B3B "></el-button>
+    <!-- <el-button icon="el-icon-search"  @click="inputSearch()" circle style="color:#FF6B3B "></el-button> -->
+    <el-button icon="el-icon-question"  @click="messageVisial = true" circle style="color:#FF6B3B "></el-button>
     <el-button  icon="el-icon-message" @click="gotoMessage" circle style="color:#FF6B3B "></el-button>
     <el-dropdown trigger="click" @command="handleClick">
     <el-button icon="el-icon-more" style="margin-left:8px;color:#FF6B3B"  circle></el-button>
       <el-dropdown-menu slot="dropdown" >
-        <el-dropdown-item  command="1" icon="el-icon-question">帮助</el-dropdown-item>
+        <!-- <el-dropdown-item  command="1" icon="el-icon-question">帮助</el-dropdown-item> -->
         <el-dropdown-item command="2" icon="el-icon-switch-button">退出</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
@@ -54,20 +55,16 @@ export default {
     loginOut () {
       const url = '/logout'
       getAction(url).then(res => {
-            if (res.data.code == 200) {
-              this.$message.success(res.data.msg)
-              this.$router.push({ name: 'Home' })
-            } else {
-              this.$message.warning('退出失败')
-            }
+        if (res.data.code == 200) {
+          this.$message.success(res.data.msg)
+          this.$router.push({ name: 'Home' })
+        } else {
+          this.$message.warning('退出失败')
+        }
       })
     },
     handleClick (command) {
-      if (command === '1') {
-        this.messageVisial = true
-      } else {
-        this.loginOut()
-      }
+      this.loginOut()
     },
     gotoMessage () {
       this.$router.push({ name: 'MessageList' })
@@ -77,6 +74,7 @@ export default {
       const select = item.value.split('-')
       this.state = select[0]
       this.login = item.loginName
+      this.$router.push({ name: 'MatchResult', query: { matchName: this.login } })
     },
     search (cb) {
       const url = '/profile/search'
@@ -93,10 +91,10 @@ export default {
       this.queryInput = queryString
       console.log('queryString', queryString)
       this.search(cb)
-    },
-    inputSearch () {
-      this.$router.push({ name: 'MatchResult', query:{ matchName: this.login} })
     }
+    // inputSearch () {
+    //   this.$router.push({ name: 'MatchResult', query: { matchName: this.login } })
+    // }
   }
 }
 </script>

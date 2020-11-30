@@ -68,23 +68,23 @@ export default {
   },
   methods: {
     gotoMatch (name) {
-      this.$router.push({ name: 'MatchResult', query:{name:name} })
+      this.$router.push({ name: 'MatchResult', params: { name: name } })
     },
     gotoMessage (name) {
-      this.$router.push({ name: 'messageDetail',query:{name:name} })
+      this.$router.push({ name: 'messageDetail', params: { name: name } })
     },
     fetchData () {
       this.listLoading = true
       const url = '/profile/recommend'
       getAction(url).then(res => {
         this.tableData = []
-        this.first = res.data.msg.first,
+        this.first = res.data.msg.first
         this.tableData.push(this.first)
-        this.second = res.data.msg.second,
+        this.second = res.data.msg.second
         this.tableData.push(this.second)
-        this.third = res.data.msg.third,
+        this.third = res.data.msg.third
         this.tableData.push(this.third)
-        this.forth = res.data.msg.forth,
+        this.forth = res.data.msg.forth
         this.tableData.push(this.forth)
       })
       this.listLoading = false

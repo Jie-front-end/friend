@@ -9,7 +9,7 @@
           <el-button icon="el-icon-edit" round size="small" style="color:#FF6B3B" @click="editVisual = true"></el-button>
         </div>
         <div class="info-title">昵称:</div>
-        <span class="info">{{form.nick}}</span>
+        <span class="info">{{form.nick_name}}</span>
         <div class="info-title">性别:</div>
         <span>{{form.sex}}</span>
         <!-- <div class="info-title">生日:</div>
@@ -55,9 +55,18 @@
     <el-dialog
       title="修改"
       :visible.sync="editVisual"
-      width="80%"
+      width="70%"
       >
     <el-form :model="editForm" ref="editForm" label-width="60px">
+      <el-form-item
+        label="昵称"
+        prop="nick_name"
+        :rules="[
+          { required: true, message: '昵称不能为空'},
+        ]"
+      >
+        <el-input v-model="editForm.nick_name"></el-input>
+      </el-form-item>
       <el-form-item
         label="职业"
         prop="career"
@@ -65,7 +74,7 @@
           { required: true, message: '职业不能为空'},
         ]"
       >
-        <el-input type="age" v-model="editForm.career"></el-input>
+        <el-input v-model="editForm.career"></el-input>
       </el-form-item>
       <el-form-item
         label="签名"
@@ -103,7 +112,8 @@ export default {
       },
       editForm: {
         career: '',
-        sign: ''
+        sign: '',
+        nick_name: ''
       },
       editVisual: false
       // option:{
@@ -162,13 +172,13 @@ export default {
       this.$refs.editForm.validate((valid) => {
         if (valid) {
           const url = '/user/info'
-          postAction(url,{career:this.editForm.career,sign:this.editForm.career}).then(res => {
+          postAction(url, { career: this.editForm.career, sign: this.editForm.career }).then(res => {
             if (res.data.code == 200) {
               this.$message.success(res.data.msg)
               this.editVisual = false
             } else {
               this.$message.warning(res.data.msg)
-            }             
+            }
           })
         } else {
           console.log('error submit!!')

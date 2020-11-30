@@ -74,24 +74,24 @@ export default {
   data () {
     return {
       form: {},
-      coResult:{}
+      coResult: {}
     }
   },
   computed: {
-     matchName(){
-       return this.$router.query.matchName 
-     }
+    name () {
+      return this.$router.params.name
+    }
   },
   mounted () {
     this.he()
   },
   methods: {
     he () {
-      const url = `/profile/co/${this.matchName}`
-      getAction(url).then(res => {
+      const url = '/profile/co'
+      postAction(url, { name: this.name }).then(res => {
         this.coResult = res.data.msg.result
       })
-    },
+    }
   }
 }
 </script>
