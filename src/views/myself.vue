@@ -8,31 +8,43 @@
           <span class="card-item-head">个人信息</span>
           <el-button icon="el-icon-edit" round size="small" style="color:#FF6B3B" @click="editVisual = true"></el-button>
         </div>
-        <div class="info-title">昵称:</div>
-        <span class="info">{{form.nick_name}}</span>
-        <div class="info-title">性别:</div>
-        <span>{{form.sex}}</span>
-        <!-- <div class="info-title">生日:</div>
-        <span>{{form.sex}}</span> -->
-        <div class="info-title">八字:</div>
-        <span>{{form.birth_year}} {{form.birth_month}} {{form.birth_day}} {{form.birth_hour}}</span>
-        <div class="info-title">五行主宰:</div>
-        <span>{{form.five_elements}}</span>
-        <div class="info-title">职业:</div>
-        <span>{{form.career}}</span>
-        <div class="info-title">个性签名:</div>
-        <span>{{form.sign}}</span>
+        <div>
+          <span class="info-title">昵称:</span>
+          <span class="info">{{form.nick}}</span> 
+        </div>
+        <div>
+        <span class="info-title">性别:</span>
+        <span class="info">{{form.sex}}</span>
+        </div>
+        <!-- <span class="info-title">生日:</span>
+         <span class="info">{{form.sex}}</span> -->
+        <div>
+         <span class="info-title">八字:</span>
+         <span class="info">{{form.birth_year}} {{form.birth_month}} {{form.birth_day}} {{form.birth_hour}}</span>
+        </div>
+        <div>
+        <span class="info-title">五行主宰:</span>
+         <span class="info">{{form.five_elements}}</span>
+         </div>
+         <div>
+        <span class="info-title">职业:</span>
+         <span class="info">{{form.career}}</span>
+         </div>
+         <div>
+        <span class="info-title">个性签名:</span>
+         <span class="info">{{form.sign}}</span>
+         </div>
    </el-card>
     <el-card class="box-card" shadow="always">
         <div class="card-item-head">主性格</div>
         <div>
-           <span>{{form.user_adv}}</span>
+           <span class="info">{{form.user_adv}}</span>
         </div>
    </el-card>
     <el-card class="box-card" shadow="always">
         <div class="card-item-head">反性格</div>
         <div>
-           <span>{{form.user_dis}}</span>
+          <span class="info">{{form.user_dis}}</span>
         </div>
    </el-card>
     <el-card class="box-card" shadow="always">
@@ -40,8 +52,8 @@
         <div>
         <el-tabs v-model="activeName" type="card">
          <el-tab-pane v-for="(item,index) in form.lucky" :key="index" :label="item.year" :name="index">
-            <p>{{item.emotion}}</p>
-            <p>{{item.leader}}</p>
+            <p class="info">{{item.emotion}}</p>
+            <p class="info">{{item.leader}}</p>
          </el-tab-pane>
       </el-tabs>
         </div>
@@ -49,7 +61,7 @@
     <el-card class="box-card" shadow="hover">
         <div class="card-item-head">注意</div>
         <div>
-           <span>{{form.attention}}</span>
+          <span class="info">{{form.attention}}</span>
         </div>
    </el-card>
     <el-dialog
@@ -78,7 +90,7 @@
       </el-form-item>
       <el-form-item
         label="签名"
-        prop="info"
+        prop="sign"
         :rules="[
           { required: true, message: '个性签名不能为空'},
         ]"
@@ -223,6 +235,13 @@ export default {
   margin-bottom: 10px;
 }
 .info-title{
+  font-size: 14px;
+  font-weight: 500;
+  margin:0px 6px 10px 0px;
+  color: #474747;
+  font-family: DFKai-SB;
+}
+.info{
   font-size: 14px;
   font-weight: 500;
   margin:0px 6px 10px 0px;

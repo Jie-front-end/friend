@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <el-card class="box-card" v-for="(tableItem,index) in tableList" :key="index" shadow="always">
+    <el-card class="box-card" v-for="(tableItem,index) in tableData" :key="index" shadow="always">
         <div class="card-item-head">{{tableList[index].title}}</div>
         <div>
       <el-carousel height="300px" :autoplay='false'>
@@ -9,26 +9,42 @@
             <div class="userName">
                 <i class="iconfont icon-nansheng iconSize" />
                 <span class="userName-title"> 李大力</span>
-                <el-button round size="small" style="color:#FF6B3B" @click="gotoMatch"><i class="iconfont icon-aixin"/></el-button>
-                <el-button round size="small" style="color:#FF6B3B" @click="gotoMessage"><i class="iconfont icon-sixin"/></el-button>
+                <el-button round size="small" style="color:#FF6B3B" @click="gotoMatch(item.login_name)"><i class="iconfont icon-aixin"/></el-button>
+                <el-button round size="small" style="color:#FF6B3B" @click="gotoMessage(item.login_name)"><i class="iconfont icon-sixin"/></el-button>
             </div>
             <div class="userInfo">
-              <div class="info-title">昵称:</div>
-              <span class="info">{{form.nick}}</span>
-              <div class="info-title">性别:</div>
-              <span>{{form.sex}}</span>
-              <div class="info-title">城市:</div>
-              <span>{{form.sex}}</span>
-              <div class="info-title">生日:</div>
-              <span>{{form.sex}}</span>
-              <div class="info-title">八字:</div>
-              <span>{{form.sex}}</span>
-              <div class="info-title">五行主宰:</div>
-              <span>{{form.sex}}</span>
-              <div class="info-title">职业:</div>
-              <span>{{form.career}}</span>
-              <div class="info-title">个性签名:</div>
-              <span>{{form.birth_year}}</span>
+              <div>
+                <span class="info-title">昵称:</span>
+                <span class="info">{{item.nickname}}</span>
+              </div>
+              <div>
+                <span class="info-title">性别:</span>
+                <span class="info">{{item.sex}}</span>
+              </div>
+              <div>
+                <span class="info-title">城市:</span>
+                <span class="info">{{item.city}}</span>
+              </div>
+              <div>
+                <span class="info-title">生日:</span>
+                <span class="info">{{item.date}}</span>
+              </div>
+              <div>
+                <span class="info-title">八字:</span>
+                <span class="info">{{item.birth_year}} {{item.birth_month}} {{item.birth_day}} {{item.birth_hour}}</span>
+              </div>
+              <div>  
+                <span class="info-title">五行主宰:</span>
+                <span class="info">{{item.sex}}</span>
+              </div>
+              <div>
+                <span class="info-title">职业:</span>
+                <span class="info">{{item.career}}</span>
+              </div>
+              <div>
+                <span class="info-title">个性签名:</span>
+                <span class="info">{{item.birth_year}}</span>
+              </div>
             </div>
           </div>
         </el-carousel-item>
@@ -38,6 +54,7 @@
   </div>
 </template>
 <script>
+import Connect from '@/connect.js'
 import { postAction, getAction } from '@/api/manage'
 export default {
   data () {
@@ -63,31 +80,36 @@ export default {
       form: {}
     }
   },
-  created () {
+  mounted () {
     this.fetchData()
   },
   methods: {
     gotoMatch (name) {
+      // Connect.$emit('getName',{
+      //       name:name
+      // })
       this.$router.push({ name: 'MatchResult', params: { name: name } })
     },
     gotoMessage (name) {
       this.$router.push({ name: 'messageDetail', params: { name: name } })
     },
     fetchData () {
-      this.listLoading = true
       const url = '/profile/recommend'
       getAction(url).then(res => {
         this.tableData = []
         this.first = res.data.msg.first
-        this.tableData.push(this.first)
+        this.tableData[0] = [...this.first]
         this.second = res.data.msg.second
-        this.tableData.push(this.second)
+        this.tableData[1] = [...this.second]
         this.third = res.data.msg.third
-        this.tableData.push(this.third)
+        this.tableData[2] = [...this.third]
         this.forth = res.data.msg.forth
-        this.tableData.push(this.forth)
+        this.tableData[3] = [...this.forth]
       })
-      this.listLoading = false
+      console.log('tableData', this.tableData)
+      console.log('first', this.first)
+      console.log('second', this.second)
+      console.log('third', this.third)
     },
     getUserDetail (id) {
       this.dialogVisible = true
@@ -102,6 +124,8 @@ export default {
 </script>
 <style >
 .el-carousel__item {
+  font-size: 14px;
+  font-size: 14px;
   font-size: 14px;
   opacity: 0.75;
   margin: 0;
@@ -128,6 +152,12 @@ export default {
   padding: 0px 20px;
 }
 .info-title{
+  font-size: 14px;
+  font-weight: 500;
+  margin:0px 0px 10px 0px;
+  font-family: DFKai-SB;
+}
+.info{
   font-size: 14px;
   font-weight: 500;
   margin:0px 0px 10px 0px;

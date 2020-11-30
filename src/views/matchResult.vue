@@ -74,7 +74,9 @@ export default {
   data () {
     return {
       form: {},
-      coResult: {}
+      coResult: {
+        harmony:{}
+      }
     }
   },
   computed: {
