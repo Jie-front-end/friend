@@ -10,7 +10,11 @@
                 <i v-if="item.sex === '男'" class="iconfont icon-nansheng iconSize" />
                 <i v-else class="iconfont icon-nvsheng iconSize" />
                 <span class="userName-title"> {{item.nickname}}</span>
-                <el-button round size="small" style="color:#FF6B3B" @click="gotoMatch(item.login_name)"><i class="iconfont icon-aixin"/></el-button>
+                <el-button class="ml10" round size="small" style="color:#FF6B3B"
+                   v-clipboard:copy="item.login_name"
+                   v-clipboard:success="onCopy"
+                   v-clipboard:error="onError"><i class="iconfont icon-aixin"/></el-button>
+                <!-- <el-button round size="small" style="color:#FF6B3B" @click="gotoMatch(item.login_name)"><i class="iconfont icon-aixin"/></el-button> -->
                 <el-button round size="small" style="color:#FF6B3B" @click="gotoMessage(item.login_name,item.nickname )"><i class="iconfont icon-sixin"/></el-button>
             </div>
             <div class="userInfo">
@@ -114,7 +118,15 @@ export default {
       getAction(url).then(res => {
         this.form = res.data.msg
       })
-    }
+    },
+    // 复制成功
+    onCopy(e){
+      this.$message.success('复制成功')
+    },
+    // 复制失败
+    onError(e){
+      this.$message.success('复制失败')
+    },
   }
 }
 </script>

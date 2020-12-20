@@ -6,6 +6,7 @@
           :fetch-suggestions="querySearchAsync"
           placeholder="请输入用户名"
           @select="handleSelect"
+          clearable
           style="margin-right:8px; width:72%"
         > <i slot="prefix" class="el-input__icon el-icon-search"></i>
      </el-autocomplete>
@@ -74,7 +75,7 @@ export default {
       const select = item.value.split('-')
       this.state = select[0]
       this.login = item.loginName
-      this.$router.push({ name: 'MatchResult', query: { matchName: this.login } })
+      this.$router.push({ name: 'MatchResult', params: { loginName: this.login } })
     },
     search (cb) {
       const url = '/profile/search'
