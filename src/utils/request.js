@@ -5,7 +5,7 @@ import store from '@/store'
 
 // create an axios instance
 const service = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
+  baseURL: '/api', // url = base url + request url
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 600000 // request timeout
 })
@@ -79,12 +79,12 @@ service.interceptors.response.use(
     // if (error.response.status === 911 || error.response.status === 811) {
     //   window.location.replace(error.response.data)
     // } else if (error.response.status === 504) {
-      Message({
-        showClose: true,
-        message: '请求超时',
-        type: 'error',
-        duration: 5 * 1000
-      })
+    Message({
+      showClose: true,
+      message: '请求超时',
+      type: 'error',
+      duration: 5 * 1000
+    })
     // } else {
     //   const errorData = error.response.data
     //   Message({

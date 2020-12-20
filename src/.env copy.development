@@ -1,0 +1,15 @@
+# just a flag
+ENV = 'development'
+
+# login url
+VUE_APP_LOGIN_URL = 'http://192.168.100.67:8446/cas/login?service=http://192.168.100.67:8095/clearingadmin/login/cas'
+VUE_APP_HOME_URL = 'https://192.168.100.67:8989/'
+# map url
+VUE_APP_MAP_URL = '/routing/'
+# base api
+VUE_APP_BASE_API = '/clearing-service-plus'
+# download base url
+VUE_APP_DOWNLOAD_BASE = 'http://10.45.15.43:8089'
+# bi base url
+VUE_APP_BI_BASE_URL = 'http://10.145.0.20:37799/webroot/decision/v5/design/report/share/'
+VUE_CLI_BABEL_TRANSPILE_MODULES = true

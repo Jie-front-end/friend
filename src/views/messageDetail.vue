@@ -13,35 +13,40 @@
         </div>
         <div style="display:flex; margin-top:20px">
           <el-input v-model="sendText" style="width:200px;margin-right:10px;flex:1" placeholder="请输入内容"></el-input>
-          <el-button type="primary" size="small" style="margin-left：20px" @click="send()">发送</el-button>
+          <el-button type="primary" :loading="loading" size="small" style="margin-left：20px" @click="send()">发送</el-button>
         </div>
       </el-card>
   </div>
 </template>
 <script>
 import { postAction, getAction } from '@/api/manage'
-
+import { mapState } from 'vuex'
 export default {
   data () {
     return {
       page: 1,
       massageList: [
-        { name: '李大力', num: 1, time: '2020-10-12 9:00', status: 'receive', message: '你好' },
-        { name: '苏大强', num: 0, time: '2020-10-12 9:10', status: 'send', message: '很高兴认识你！你是哪里人？' }
+
       ],
-      list: [
-        { name: '1' }
+      msglist: [
       ],
       listLoading: false,
       dialogVisible: false,
       form: {},
-      sendText: ''
+      sendText: '',
+      loading: false
     }
   },
   computed: {
-    name () {
-      return this.$route.params.name
-    }
+    loginName () {
+      return this.$route.params.loginName
+    },
+    nickName () {
+      return this.$route.params.nickName
+    },
+    ...mapState([
+      'login_name'
+    ])
   },
   mounted () {
     this.message()
@@ -49,15 +54,32 @@ export default {
   methods: {
     message () {
       const url = '/message/content'
-      postAction(url, { name: this.name }).then(res => {
-        console.log('res.data', res.data)
+      postAction(url, { name: this.loginName }).then(res => {
+        this.massageList = []
+        this.msglist = res.data.msg.list
+        this.msglist.forEach(item => {
+          if (item.send === this.login_name) {
+            this.massageList.push({ name: res.data.msg.sex.host_name, time: item.time, status: 'send', message: item.content })
+          } else if (item.accept === this.login_name) {
+            this.massageList.push({ name: this.nickName, time: item.time, status: 'receive', message: item.content })
+          }
+        })
+        console.log('this.msglist', this.massageList)
       })
     },
     send () {
       const url = '/message/send'
-      postAction(url, { login_name: this.name, text: this.sendText }).then(res => {
-        console.log('res.data', res.data)
-      })
+      this.loading = true
+      setTimeout(() => {
+        this.sendText = ''
+        postAction(url, { login_name: this.loginName, content: this.sendText }).then(res => {
+          this.message()
+          this.loading = false
+        }).catch(err => {
+          console.log('err', err)
+          this.loading = false
+        })
+      }, 300)
     }
   }
 }

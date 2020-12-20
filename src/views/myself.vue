@@ -6,31 +6,31 @@
   <el-card class="box-card" shadow="always" >
         <div style="display:flex;justify-content: space-between;">
           <span class="card-item-head">个人信息</span>
-          <el-button icon="el-icon-edit" round size="small" style="color:#FF6B3B" @click="editVisual = true"></el-button>
+          <el-button icon="el-icon-edit" round size="small" style="color:#FF6B3B" @click="openEditVisual"></el-button>
         </div>
-        <div>
+        <div class="mb8">
           <span class="info-title">昵称:</span>
-          <span class="info">{{form.nick}}</span> 
+          <span class="info">{{form.nick}}</span>
         </div>
-        <div>
+        <div class="mb8">
         <span class="info-title">性别:</span>
         <span class="info">{{form.sex}}</span>
         </div>
         <!-- <span class="info-title">生日:</span>
          <span class="info">{{form.sex}}</span> -->
-        <div>
+        <div class="mb8">
          <span class="info-title">八字:</span>
          <span class="info">{{form.birth_year}} {{form.birth_month}} {{form.birth_day}} {{form.birth_hour}}</span>
         </div>
-        <div>
+        <div class="mb8">
         <span class="info-title">五行主宰:</span>
          <span class="info">{{form.five_elements}}</span>
          </div>
-         <div>
+         <div class="mb8">
         <span class="info-title">职业:</span>
          <span class="info">{{form.career}}</span>
          </div>
-         <div>
+         <div class="mb8">
         <span class="info-title">个性签名:</span>
          <span class="info">{{form.sign}}</span>
          </div>
@@ -51,7 +51,7 @@
         <div class="card-item-head">流年运势</div>
         <div>
         <el-tabs v-model="activeName" type="card">
-         <el-tab-pane v-for="(item,index) in form.lucky" :key="index" :label="item.year" :name="index">
+         <el-tab-pane v-for="(item,index) in form.lucky" :key="index" :label="item.year" :name="`tab${index}`">
             <p class="info">{{item.emotion}}</p>
             <p class="info">{{item.leader}}</p>
          </el-tab-pane>
@@ -180,14 +180,21 @@ export default {
     this.host()
   },
   methods: {
+    openEditVisual () {
+      this.editVisual = true
+      this.editForm.nick_name = this.form.nick
+      this.editForm.career = this.form.career
+      this.editForm.sign = this.form.sign
+    },
     submitForm () {
       this.$refs.editForm.validate((valid) => {
         if (valid) {
           const url = '/user/info'
-          postAction(url, { career: this.editForm.career, sign: this.editForm.career }).then(res => {
+          postAction(url, this.editForm).then(res => {
             if (res.data.code == 200) {
-              this.$message.success(res.data.msg)
+              this.host()
               this.editVisual = false
+              this.$message.warning(res.data.msg)
             } else {
               this.$message.warning(res.data.msg)
             }
@@ -237,16 +244,17 @@ export default {
 .info-title{
   font-size: 14px;
   font-weight: 500;
-  margin:0px 6px 10px 0px;
-  color: #474747;
+  margin:0px 6px 0px 0px;
+  color: #000;
   font-family: DFKai-SB;
 }
 .info{
   font-size: 14px;
   font-weight: 500;
   margin:0px 6px 10px 0px;
-  color: #474747;
+  color: rgba(0,0,0,0.7);
   font-family: DFKai-SB;
+  line-height: 24px;
 }
 .el-form-item__label{
   font-weight: bold;

@@ -11,44 +11,44 @@
     <el-card class="box-card" shadow="always">
         <div class="card-item-head">匹配程度</div>
         <div>
-           <p>匹配得分：{{coResult.harmony.harmony_score}}</p>
-           <span>{{coResult.harmony.harmony_words}}</span>
+           <p class="info-weight">匹配得分：{{coResult.harmony.harmony_score}}</p>
+           <span class="info">{{coResult.harmony.harmony_words}}</span>
         </div>
    </el-card>
     <el-card class="box-card" shadow="always">
         <div class="card-item-head">本人主性格</div>
         <div>
-           <span>{{coResult.harmony.female_char}}</span>
+           <span class="info">{{coResult.charactor.female_char}}</span>
         </div>
    </el-card>
     <el-card class="box-card" shadow="always">
         <div class="card-item-head">匹配者主性格</div>
         <div>
-           <span>{{coResult.harmony.male_char}}</span>
+           <span class="info">{{coResult.charactor.male_char}}</span>
         </div>
    </el-card>
     <el-card class="box-card" shadow="always">
         <div class="card-item-head">本人缺少性格</div>
         <div>
-           <span>{{coResult.harmony.female_nonchar}}</span>
+           <span class="info">{{coResult.charactor.female_nonchar}}</span>
         </div>
    </el-card>
     <el-card class="box-card" shadow="always">
         <div class="card-item-head">匹配者缺少性格</div>
         <div>
-           <span>{{coResult.harmony.male_nonchar}}</span>
+           <span class="info">{{coResult.charactor.male_nonchar}}</span>
         </div>
    </el-card>
     <el-card class="box-card" shadow="always">
         <div class="card-item-head">本人应注意</div>
         <div>
-           <span>{{coResult.harmony.female_attention}}</span>
+           <span class="info">{{coResult.charactor.female_attention}}</span>
         </div>
    </el-card>
     <el-card class="box-card" shadow="always">
         <div class="card-item-head">匹配者应注意</div>
         <div>
-           <span>{{coResult.harmony.male_attention}}</span>
+           <span class="info">{{coResult.charactor.male_attention}}</span>
         </div>
    </el-card>
     <!-- <el-form class="mt20" ref="coResult" :model="coResult" label-width="200px" label-position="top" label-suffix=":">
@@ -65,32 +65,26 @@
 import { mapState } from 'vuex'
 import { postAction, getAction } from '@/api/manage'
 export default {
-  props: {
-    coResult: {
-      type: Object,
-      default: () => {}
-    }
-  },
   data () {
     return {
       form: {},
       coResult: {
-        harmony:{}
+        harmony: {}
       }
     }
   },
   computed: {
-    name () {
-      return this.$router.params.name
+    loginName () {
+      return this.$route.params.loginName
     }
   },
-  mounted () {
+  created () {
     this.he()
   },
   methods: {
     he () {
       const url = '/profile/co'
-      postAction(url, { name: this.name }).then(res => {
+      postAction(url, { name: this.loginName }).then(res => {
         this.coResult = res.data.msg.result
       })
     }
@@ -98,6 +92,26 @@ export default {
 }
 </script>
 <style scoped>
+.info-weight{
+  color: #000;
+  font-family: DFKai-SB;
+  font-weight: 600;
+}
+.info-title{
+  font-size: 14px;
+  font-weight: 500;
+  margin:0px 6px 0px 0px;
+  color: #000;
+  font-family: DFKai-SB;
+}
+.info{
+  font-size: 14px;
+  font-weight: 500;
+  margin:0px 6px 10px 0px;
+  color: rgba(0,0,0,0.7);
+  font-family: DFKai-SB;
+  line-height: 24px;
+}
 .el-form-item__label{
   font-weight: bold;
   font-size: 1em ;

@@ -8,7 +8,7 @@ import {
   Row,
   Col,
   Dialog,
-  Notification,
+  Message,
   Form,
   FormItem,
   Input,
@@ -52,7 +52,7 @@ const element = {
     Vue.use(Carousel)
     Vue.use(CarouselItem)
     Vue.use(Divider)
-    Vue.prototype.$notify = Notification
+    Vue.prototype.$message = Message
   }
 }
 

@@ -1,21 +1,23 @@
 <template>
    <div>
     <div style="display:flex;justify-content:space-between">
-      <div class="ml10">
-        60条
+      <div class="ml10 mb8">
+        {{this.nameList.length}}位联系人
       </div>
-      <el-button style="margin-bottom:5px" size="small">全部已读</el-button>
+      <!-- <el-button style="margin-bottom:5px" size="small">全部已读</el-button> -->
     </div>
     <el-card class="card">
       <div>
-        <div v-for="(item, index) in massageList" :key="index" >
+        <div v-for="(item, index) in nameList" :key="index" >
           <div class="body-item">
-            <div style="margin-left:15px" class="name-position" @click="detail(item.name)">
-              {{item.name}}
+            <div style="margin-left:15px" class="name-position" @click="detail(item.login_name,item.nickname)">
+                <i v-if="item.sex === '女'" class="iconfont icon-nvsheng iconSize" />
+                <i v-else class="iconfont icon-nvsheng iconSize" />
+              <span class="ml10">{{item.nickname}}</span>
               <!-- <span class="right-corner">1</span> -->
             </div>
             <div style="margin-right:15px">
-              <span class="small-font">7天前</span>
+              <!-- <span class="small-font">7天前</span> -->
               <!-- <el-button @click="dialogVisual" size='small' type="text">删除</el-button> -->
             </div>
           </div>
@@ -55,13 +57,10 @@ export default {
         { name: '李大力', num: 1, time: '' },
         { name: '苏大强', num: 0, time: '' }
       ],
-      twoMassageList: [
-        { name: '李大力', message: '你好', status: 'send' },
-        { name: '苏大强', message: '你好', status: 'receive' }
-      ],
       list: [
         { name: '1' }
       ],
+      nameList: [],
       listLoading: false,
       dialogVisible: false,
       form: {}
@@ -74,14 +73,14 @@ export default {
     toMatch () {
 
     },
-    detail (name) {
-      this.$router.push({ name: 'MessageDetail', params: { name } })
+    detail (loginName, nickName) {
+      this.$router.push({ name: 'MessageDetail', params: { loginName: loginName, nickName: nickName } })
     },
     hasRead () {},
     box () {
       const url = '/message/box'
       getAction(url).then(res => {
-        console.log('res.data', res.data)
+        this.nameList = res.data.msg.name
       })
     }
   }
@@ -102,6 +101,9 @@ export default {
     font-size: 12px;
     color: #686868;
     margin-right:20px;
+  }
+  .iconSize{
+    font-size: 32px;
   }
   .right-corner{
     display: inline-block;
