@@ -86,7 +86,7 @@ export default {
       const select = item.value.split('-')
       this.state = select[0]
       this.login = item.loginName
-      this.$router.push({ name: 'MatchResult', params: { loginName: this.login } })
+      this.$router.push({ name: 'MatchResult', query: { loginName: this.login } })
     },
     search (cb) {
       const url = '/profile/search'

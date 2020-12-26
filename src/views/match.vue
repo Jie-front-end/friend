@@ -106,10 +106,10 @@ export default {
       this.messageVisial = true
     },
     gotoMatch (name) {
-      this.$router.push({ name: 'MatchResult', params: { loginName: name } })
+      this.$router.push({ name: 'MatchResult', query: { loginName: name } })
     },
     gotoMessage (loginName, nickName) {
-      this.$router.push({ name: 'MessageDetail', params: { loginName: loginName, nickName: nickName } })
+      this.$router.push({ name: 'MessageDetail', query: { loginName: loginName, nickName: nickName } })
     },
     fetchData () {
       const url = '/profile/recommend'

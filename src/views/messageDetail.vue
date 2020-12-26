@@ -56,10 +56,10 @@ export default {
   },
   computed: {
     loginName () {
-      return this.$route.params.loginName
+      return this.$route.query.loginName
     },
     nickName () {
-      return this.$route.params.nickName
+      return this.$route.query.nickName
     },
     ...mapState([
       'login_name'

@@ -14,6 +14,7 @@
       <el-form-item style="text-align:left">
         <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
         <el-button @click="register()">注册</el-button>
+        <el-button type="text" @click="foget()">忘记密码</el-button>
       </el-form-item>
     </el-form>
   </el-card>
@@ -40,6 +41,9 @@ export default {
     }
   },
   methods: {
+    foget(){
+      this.$router.push({ name: 'ForgetCode' })
+    },
     submitForm () {
       const url = '/user/login'
       this.$refs.ruleForm.validate((valid) => {
@@ -70,7 +74,7 @@ export default {
    align-items: center;
 }
 .card{
-  width: 80vh;
+  width: 80%;
   padding: 30px;
 }
 .iconStyle{

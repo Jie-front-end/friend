@@ -74,7 +74,7 @@ export default {
   },
   computed: {
     loginName () {
-      return this.$route.params.loginName
+      return this.$route.query.loginName
     }
   },
   created () {

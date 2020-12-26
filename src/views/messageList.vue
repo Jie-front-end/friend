@@ -66,7 +66,7 @@ export default {
 
     },
     detail (loginName, nickName) {
-      this.$router.push({ name: 'MessageDetail', params: { loginName: loginName, nickName: nickName } })
+      this.$router.push({ name: 'MessageDetail', query: { loginName: loginName, nickName: nickName } })
     },
     hasRead () {},
     box () {
