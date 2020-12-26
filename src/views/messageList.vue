@@ -8,25 +8,17 @@
     </div>
     <el-card class="card">
       <div>
-        <div v-for="(item, index) in nameList" :key="index" >
-          <div class="body-item">
-            <div style="margin-left:15px" class="name-position" @click="detail(item.login_name,item.nickname)">
-                <i v-if="item.sex === '女'" class="iconfont icon-nvsheng iconSize" />
-                <i v-else class="iconfont icon-nvsheng iconSize" />
-              <span class="ml10">{{item.nickname}}</span>
+           <div v-for="(item, index) in nameList" :key="index" style="margin-left:12px" @click="detail(item.login_name,item.nickname)">
+                <i v-if="item.sex === '女'" class="iconfont icon-nvsheng iconSize ml10" />
+                <i v-else class="iconfont icon-nvsheng iconSize ml10" />
+                <span class="ml10">{{item.nickname}}</span>
               <!-- <span class="right-corner">1</span> -->
-            </div>
-            <div style="margin-right:15px">
-              <!-- <span class="small-font">7天前</span> -->
-              <!-- <el-button @click="dialogVisual" size='small' type="text">删除</el-button> -->
-            </div>
-          </div>
-          <el-divider></el-divider>
+                <el-divider></el-divider>
+           </div>
             <!-- <el-button plain style="width:100%;margin-bottom:10px">
               {{item.name}}
             <el-tag :type="item.num > 0 ? 'warning' : 'success'">{{item.num}}</el-tag>
             </el-button> -->
-        </div>
       </div>
       <!-- <div v-else>
         <div class="lr">
@@ -103,7 +95,7 @@ export default {
     margin-right:20px;
   }
   .iconSize{
-    font-size: 32px;
+    font-size: 40px;
   }
   .right-corner{
     display: inline-block;
@@ -117,8 +109,5 @@ export default {
     background-color: #FDEDBE;
     border:2px solid #D2EDC8;
     border-radius:10px
-  }
-  .name-position{
-    position: relative;
   }
 </style>

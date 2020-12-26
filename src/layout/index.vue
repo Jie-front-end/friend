@@ -4,7 +4,7 @@
      <el-autocomplete
           v-model="state"
           :fetch-suggestions="querySearchAsync"
-          placeholder="请输入用户名"
+          placeholder="请输入查询人的全部昵称"
           @select="handleSelect"
           clearable
           style="margin-right:8px; width:72%"
@@ -27,7 +27,7 @@
       width="80%"
       >
       <div class="mb10">我俩合不合？</div>
-      <span>在搜索框中输入查询人的昵称，然后选择对应的出生时间，即可获取合婚/合作匹配指数和建议。注：只能查询已经注册的人哦~</span>
+      <span>在搜索框中输入查询人的全部昵称，然后选择对应的出生时间，即可获取合婚/合作匹配指数和建议。注：只能查询已经注册的人哦~</span>
       <div class="tr mt20">
         <el-button type="primary" size="small" @click="messageVisial = false">确 定</el-button>
       </div>
@@ -39,6 +39,7 @@
 
 <script>
 import { postAction, getAction } from '@/api/manage'
+import { mapState } from 'vuex'
 export default {
   components: {
   },
@@ -50,6 +51,16 @@ export default {
       filtList: [],
       queryInput: '',
       messageVisial: false
+    }
+  },
+  computed: {
+    ...mapState([
+      'nickname'
+    ])
+  },
+  watch: {
+    nickname (newName, oldName) {
+      this.state = newName
     }
   },
   methods: {

@@ -55,7 +55,6 @@
       <el-form-item label="事业">
         <p>本人：{{coResult.cooperation.female_char}}</p>
         <p>匹配者：{{coResult.cooperation.male_char}}</p>
-      </el-form-item>
     </el-form> -->
   </el-card>
   </div>

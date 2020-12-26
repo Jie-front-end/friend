@@ -58,12 +58,12 @@
       </el-tabs>
         </div>
    </el-card>
-    <el-card class="box-card" shadow="hover">
+    <!-- <el-card class="box-card" shadow="hover">
         <div class="card-item-head">注意</div>
         <div>
           <span class="info">{{form.attention}}</span>
         </div>
-   </el-card>
+   </el-card> -->
     <el-dialog
       title="修改"
       :visible.sync="editVisual"

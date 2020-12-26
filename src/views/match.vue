@@ -1,5 +1,7 @@
 <template>
   <div class="wrapper">
+    <!-- <el-button type="text" @click="helpVisual">使用说明</el-button> -->
+    <div style="width:100%;text-align:right;margin:0px"><el-button type="text" @click="helpVisual">使用说明</el-button></div>
     <el-card class="box-card" v-for="(tableItem,index) in tableData" :key="index" shadow="always">
         <div class="card-item-head">{{tableItem.title}}</div>
         <div>
@@ -11,7 +13,7 @@
                 <i v-else class="iconfont icon-nvsheng iconSize" />
                 <span class="userName-title"> {{item.nickname}}</span>
                 <el-button class="ml10" round size="small" style="color:#FF6B3B"
-                   v-clipboard:copy="item.login_name"
+                   v-clipboard:copy="item.nickname"
                    v-clipboard:success="onCopy"
                    v-clipboard:error="onError"><i class="iconfont icon-aixin"/></el-button>
                 <!-- <el-button round size="small" style="color:#FF6B3B" @click="gotoMatch(item.login_name)"><i class="iconfont icon-aixin"/></el-button> -->
@@ -56,6 +58,17 @@
       </el-carousel>
         </div>
    </el-card>
+       <el-dialog
+      title="帮助"
+      :visible.sync="messageVisial"
+      width="70%"
+      >
+      <span>点击推荐结果卡片，可出现指示箭头,</span>
+      <p>箭头左右两边箭头即可查看所有与你匹配的人。</p>
+      <div class="tr mt20">
+        <el-button type="primary" size="small" @click="messageVisial = false">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -74,6 +87,7 @@ export default {
       ],
       listLoading: false,
       dialogVisible: false,
+      messageVisial: false,
       tableData: {},
       first: [],
       second: [],
@@ -88,6 +102,9 @@ export default {
     this.fetchData()
   },
   methods: {
+    helpVisual () {
+      this.messageVisial = true
+    },
     gotoMatch (name) {
       this.$router.push({ name: 'MatchResult', params: { loginName: name } })
     },
@@ -102,12 +119,6 @@ export default {
         if (res.data.msg.second && res.data.msg.second.length) { this.tableData.push({ title: '性格要合哦~', data: [...res.data.msg.second] }) }
         if (res.data.msg.third && res.data.msg.third.length) { this.tableData.push({ title: '性格也要互补哦~', data: [...res.data.msg.third] }) }
         if (res.data.msg.forth && res.data.msg.forth.length) { this.tableData.push({ title: '五行也很重要呢', data: [...res.data.msg.forth] }) }
-        // this.second = res.data.msg.second
-        // this.tableData[1] = [...this.second]
-        // this.third = res.data.msg.third
-        // this.tableData[2] = [...this.third]
-        // this.forth = res.data.msg.forth
-        // this.tableData[3] = [...this.forth]
         console.log('tableData', this.tableData)
       })
     },
@@ -120,20 +131,19 @@ export default {
       })
     },
     // 复制成功
-    onCopy(e){
+    onCopy (e) {
       this.$message.success('复制成功')
+      this.$store.commit('SET_Nick_NAME', e.text)
     },
     // 复制失败
-    onError(e){
+    onError (e) {
       this.$message.success('复制失败')
-    },
+    }
   }
 }
 </script>
 <style >
 .el-carousel__item {
-  font-size: 14px;
-  font-size: 14px;
   font-size: 14px;
   opacity: 0.75;
   margin: 0;

@@ -13,9 +13,9 @@ export default new Vuex.Store({
       state.loginName = name
       sessionStorage.setItem('login_name', name)
     },
-    SET_NICK_NAME: (state, nickname) => {
+    SET_Nick_NAME: (state, nickname) => {
       state.nickname = nickname
-      sessionStorage.setItem('nickname', userName)
+      sessionStorage.setItem('nickname', nickname)
     }
   },
   actions: {
