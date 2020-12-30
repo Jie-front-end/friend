@@ -45,7 +45,7 @@
           ></el-time-picker>
         </el-col>
       </el-form-item>
-        <el-form-item label="出生地点" prop="province">
+       <el-form-item label="出生地点" prop="province">
             <el-col :span="11">
                 <el-form-item prop="province">
                     <el-select filterable style="width: 100%;" v-model="form.province" placeholder="请选择省份">
@@ -73,7 +73,7 @@
                       </el-select>
                 </el-form-item>
               </el-col>
-          </el-form-item>
+       </el-form-item>
       <!-- <el-form-item label="出生地(省市)" prop="city">
         <el-input v-model="form.city" placeholder="请输入出生地"></el-input>
       </el-form-item> -->
