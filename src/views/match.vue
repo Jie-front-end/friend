@@ -132,7 +132,11 @@ export default {
     },
     // 复制成功
     onCopy (e) {
-      this.$message.success('复制成功')
+        this.$message({
+          showClose: true,
+          message: '复制成功',
+          type: 'success'
+        });
       this.$store.commit('SET_Nick_NAME', e.text)
     },
     // 复制失败
