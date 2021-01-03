@@ -5,7 +5,7 @@
     </div> -->
   <el-card class="box-card" shadow="false" >
     <div slot="header" class="head-box">
-        <span class="card-head">匹配结果</span>
+        <span class="card-head">与{{other_nickname}}的匹配结果</span>
          <el-button style="float: left; padding: 3px 4px;margin-right:10px;color:#FF6B3B" @click="$router.push({name: 'Home'})" icon="el-icon-caret-left" circle></el-button>
     </div>
     <el-card class="box-card" shadow="always">
@@ -69,7 +69,8 @@ export default {
       form: {},
       coResult: {
         harmony: {}
-      }
+      },
+      other_nickname:''
     }
   },
   computed: {
@@ -85,6 +86,7 @@ export default {
       const url = '/profile/co'
       postAction(url, { name: this.loginName }).then(res => {
         this.coResult = res.data.msg.result
+        this.other_nickname = res.data.msg.other_nickname
       })
     }
   }

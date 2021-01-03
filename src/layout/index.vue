@@ -65,11 +65,11 @@ export default {
   },
   methods: {
     loginOut () {
-      const url = '/logout'
+      const url = '/user/logout'
       getAction(url).then(res => {
         if (res.data.code == 200) {
           this.$message.success(res.data.msg)
-          this.$router.push({ name: 'Home' })
+          this.$router.push({ name: 'Login' })
         } else {
           this.$message.warning('退出失败')
         }
