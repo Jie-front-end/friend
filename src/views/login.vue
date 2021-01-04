@@ -4,7 +4,7 @@
   <div slot="header">
     <strong><i class="iconfont icon-icon_jiaoyou iconStyle"/> 登录</strong>
   </div>
-    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="80px" class="demo-ruleForm">
       <el-form-item label="用户名" prop="login_name">
         <el-input v-model.number="ruleForm.login_name"></el-input>
       </el-form-item>
@@ -12,9 +12,9 @@
         <el-input type="password" v-model="ruleForm.login_pwd" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item style="text-align:left">
-        <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
-        <el-button @click="register()">注册</el-button>
-        <el-button type="text" @click="foget()">忘记密码</el-button>
+        <el-button size="small" type="primary" @click="submitForm('ruleForm')">登录</el-button>
+        <el-button size="small" @click="register()">注册</el-button>
+        <el-button style="margin-left:0px" type="text" @click="foget()">忘记密码</el-button>
       </el-form-item>
     </el-form>
   </el-card>
@@ -41,7 +41,7 @@ export default {
     }
   },
   methods: {
-    foget(){
+    foget () {
       this.$router.push({ name: 'ForgetCode' })
     },
     submitForm () {
@@ -74,7 +74,7 @@ export default {
    align-items: center;
 }
 .card{
-  width: 80%;
+  width: 90%;
   padding: 30px;
 }
 .iconStyle{
