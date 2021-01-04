@@ -4,7 +4,7 @@
       <div class="twoPeople">
         <div>
             <i v-if="chatPepole.name_sex === '女'" class="iconfont icon-nvsheng iconSize" />
-            <i v-else class="iconfont icon-nvsheng iconSize" />
+            <i v-else class="iconfont icon-nansheng iconSize" />
             <span class="ml5">{{chatPepole.name}}</span>
         </div>
         <div>

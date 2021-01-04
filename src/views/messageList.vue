@@ -9,12 +9,17 @@
     <el-card class="card">
       <div>
            <div v-for="(item, index) in nameList" :key="index" style="margin-left:12px" @click="detail(item.login_name,item.nickname)">
-                <i v-if="item.sex === '女'" class="iconfont icon-nvsheng iconSize ml10" />
-                <i v-else class="iconfont icon-nvsheng iconSize ml10" />
-                <span class="ml10">{{item.nickname}}</span>
-              <!-- <span class="right-corner">1</span> -->
-                <el-divider></el-divider>
-           </div>
+              <div class="readState">
+                  <div>
+                    <i v-if="item.sex === '女'" class="iconfont icon-nvsheng iconSize ml10" />
+                    <i v-else class="iconfont icon-nansheng iconSize ml10" />
+                    <span class="ml10">{{item.nickname}}</span>
+                  </div>
+                  <div v-if="readFlag.length" class="redRound"></div>
+                  <!-- <span class="right-corner">1</span> -->
+              </div>
+              <el-divider></el-divider>
+           </div> 
             <!-- <el-button plain style="width:100%;margin-bottom:10px">
               {{item.name}}
             <el-tag :type="item.num > 0 ? 'warning' : 'success'">{{item.num}}</el-tag>
@@ -55,7 +60,8 @@ export default {
       nameList: [],
       listLoading: false,
       dialogVisible: false,
-      form: {}
+      form: {},
+      readFlag:[],
     }
   },
   mounted () {
@@ -73,6 +79,7 @@ export default {
       const url = '/message/box'
       getAction(url).then(res => {
         this.nameList = res.data.msg.name
+        this.readFlag = res.data.msg.code
       })
     }
   }
@@ -96,6 +103,18 @@ export default {
   }
   .iconSize{
     font-size: 40px;
+  }
+  .readState{
+    position: relative; 
+  }
+  .redRound{
+    width: 10px;
+    height: 10px;
+    background: red;
+    border-radius: 5px;
+    position: absolute;
+    top:4px;
+    left: 12px;
   }
   .right-corner{
     display: inline-block;

@@ -34,12 +34,12 @@
               </div>
               <div class="mb8">
                 <span class="info-title">生日:</span>
-                <span class="info">{{item.date}}</span>
+                <span class="info">{{item.birthday}}</span>
               </div>
-              <div class="mb8">
+              <!-- <div class="mb8">
                 <span class="info-title">八字:</span>
                 <span class="info">{{item.birth_year}} {{item.birth_month}} {{item.birth_day}} {{item.birth_hour}}</span>
-              </div>
+              </div> -->
               <div class="mb8">
                 <span class="info-title">五行主宰:</span>
                 <span class="info">{{item.sex}}</span>

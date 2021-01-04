@@ -16,37 +16,37 @@
         </div>
    </el-card>
     <el-card class="box-card" shadow="always">
-        <div class="card-item-head">本人主性格</div>
+        <div class="card-item-head">本人性格特点</div>
         <div>
            <span class="info">{{coResult.charactor.female_char}}</span>
         </div>
    </el-card>
     <el-card class="box-card" shadow="always">
-        <div class="card-item-head">匹配者主性格</div>
+        <div class="card-item-head">匹配者性格特点</div>
         <div>
            <span class="info">{{coResult.charactor.male_char}}</span>
         </div>
    </el-card>
     <el-card class="box-card" shadow="always">
-        <div class="card-item-head">本人缺少性格</div>
+        <div class="card-item-head">本人性格缺陷部分</div>
         <div>
            <span class="info">{{coResult.charactor.female_nonchar}}</span>
         </div>
    </el-card>
     <el-card class="box-card" shadow="always">
-        <div class="card-item-head">匹配者缺少性格</div>
+        <div class="card-item-head">匹配者性格缺陷部分</div>
         <div>
            <span class="info">{{coResult.charactor.male_nonchar}}</span>
         </div>
    </el-card>
     <el-card class="box-card" shadow="always">
-        <div class="card-item-head">本人应注意</div>
+        <div class="card-item-head">本人接受的沟通方式</div>
         <div>
            <span class="info">{{coResult.charactor.female_attention}}</span>
         </div>
    </el-card>
     <el-card class="box-card" shadow="always">
-        <div class="card-item-head">匹配者应注意</div>
+        <div class="card-item-head">与匹配者沟通应注意</div>
         <div>
            <span class="info">{{coResult.charactor.male_attention}}</span>
         </div>

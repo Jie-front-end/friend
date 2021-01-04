@@ -36,13 +36,13 @@
          </div>
    </el-card>
     <el-card class="box-card" shadow="always">
-        <div class="card-item-head">主性格</div>
+        <div class="card-item-head">性格优势</div>
         <div>
            <span class="info">{{form.user_adv}}</span>
         </div>
    </el-card>
     <el-card class="box-card" shadow="always">
-        <div class="card-item-head">反性格</div>
+        <div class="card-item-head">性格缺陷</div>
         <div>
           <span class="info">{{form.user_dis}}</span>
         </div>

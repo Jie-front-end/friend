@@ -7,11 +7,11 @@
     </el-radio-group> -->
     <el-tabs type="card" v-model="activeName" style="width:100%">
       <el-tab-pane name="1">
-        <span slot="label"><i class="el-icon-user-solid"></i>个人</span>
+        <span slot="label"><i class="el-icon-user-solid"></i>个人信息</span>
         <myself />
       </el-tab-pane>
       <el-tab-pane name="2">
-         <span slot="label"><i class="iconfont icon-icon_jiaoyou"/> 推荐</span>
+         <span slot="label"><i class="iconfont icon-icon_jiaoyou"/> 好友匹配</span>
         <match />
       </el-tab-pane>
     </el-tabs>
