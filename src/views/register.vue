@@ -185,7 +185,7 @@ export default {
           this.form.hour = date.split(':')[0]
           this.form.minute = date.split(':')[1]
           postAction(url, this.form).then(res => {
-            if (res.code == 200) {
+            if (res.data.code == 200) {
               this.$message({ showClose: true, message: res.data.msg, type: 'success' })
               this.$router.push({ name: 'Login' })
             } else {
