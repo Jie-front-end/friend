@@ -13,6 +13,7 @@
     <!-- <el-button icon="el-icon-search"  @click="inputSearch()" circle style="color:#FF6B3B "></el-button> -->
     <el-button icon="el-icon-question"  @click="messageVisial = true" circle style="color:#FF6B3B "></el-button>
     <el-button  icon="el-icon-message" @click="gotoMessage" circle style="color:#FF6B3B "></el-button>
+    <el-button  @click="gotoLink" circle style="color:#FF6B3B "><i style="font-size:20px" class="iconfont icon-maomi"/></el-button>
     <el-dropdown trigger="click" @command="handleClick">
     <el-button icon="el-icon-more" style="margin-left:8px;color:#FF6B3B"  circle></el-button>
       <el-dropdown-menu slot="dropdown" >
@@ -80,6 +81,9 @@ export default {
     },
     gotoMessage () {
       this.$router.push({ name: 'MessageList' })
+    },
+    gotoLink(){
+      window.open('https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAxNTE1OTgyNA==&scene=124&uin=&key=&devicetype=Windows+10+x64&version=63010029&lang=zh_CN&a8scene=7&fontgear=2')
     },
     handleSelect (item) {
       console.log(item)

@@ -42,7 +42,15 @@
               </div> -->
               <div class="mb8">
                 <span class="info-title">五行主宰:</span>
-                <span class="info">{{item.sex}}</span>
+                <span class="info">{{item.five_e}}</span>
+              </div>
+              <div class="mb8">
+                <span class="info-title">性格特质:</span>
+                <span class="info">{{item.zhu_char}}</span>
+              </div>
+              <div class="mb8">
+                <span class="info-title">性格缺陷:</span>
+                <span class="info">{{item.fan_char}}</span>
               </div>
               <div class="mb8">
                 <span class="info-title">职业:</span>

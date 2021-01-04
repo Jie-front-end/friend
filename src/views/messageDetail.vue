@@ -65,7 +65,10 @@ export default {
       'login_name'
     ])
   },
-  mounted () {
+  created () {
+    this.message()
+  },
+  activated () {
     this.message()
   },
   methods: {
