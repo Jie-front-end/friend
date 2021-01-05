@@ -214,6 +214,8 @@ export default {
       getAction(url).then(res => {
         console.log(res.data)
         this.form = res.data.msg
+      }).catch(err => {
+         this.$router.push({ name: 'Login' })
       })
     },
     drawLine () {

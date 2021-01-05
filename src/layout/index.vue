@@ -13,11 +13,12 @@
     <!-- <el-button icon="el-icon-search"  @click="inputSearch()" circle style="color:#FF6B3B "></el-button> -->
     <el-button icon="el-icon-question"  @click="messageVisial = true" circle style="color:#FF6B3B "></el-button>
     <el-button  icon="el-icon-message" @click="gotoMessage" circle style="color:#FF6B3B "></el-button>
-    <el-button  @click="gotoLink" circle style="color:#FF6B3B "><i style="font-size:20px" class="iconfont icon-maomi"/></el-button>
+    <!-- <el-button  @click="gotoLink" circle style="color:#FF6B3B "><i style="font-size:20px" class="iconfont icon-maomi"/></el-button> -->
     <el-dropdown trigger="click" @command="handleClick">
     <el-button icon="el-icon-more" style="margin-left:8px;color:#FF6B3B"  circle></el-button>
       <el-dropdown-menu slot="dropdown" >
         <!-- <el-dropdown-item  command="1" icon="el-icon-question">帮助</el-dropdown-item> -->
+        <el-dropdown-item command="1"><i style="font-size:16px" class="iconfont icon-maomi"/>关注</el-dropdown-item>
         <el-dropdown-item command="2" icon="el-icon-switch-button">退出</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
@@ -32,6 +33,13 @@
       <div class="tr mt20">
         <el-button type="primary" size="small" @click="messageVisial = false">确 定</el-button>
       </div>
+    </el-dialog>
+    <el-dialog
+      title="关注我们"
+      :visible.sync="imgVisial"
+      width="80%"
+      >
+     <img :src="imgUrl" style="width:80%;height:80%">
     </el-dialog>
     <router-view />
 </div>
@@ -51,7 +59,9 @@ export default {
       queryResult: {},
       filtList: [],
       queryInput: '',
-      messageVisial: false
+      messageVisial: false,
+      imgVisial:false,
+      imgUrl: require("../assets/miao.jpg")
     }
   },
   computed: {
@@ -77,7 +87,11 @@ export default {
       })
     },
     handleClick (command) {
-      this.loginOut()
+      if(command === '1'){
+        this.imgVisial = true
+      } else if(command === '2'){
+        this.loginOut()
+      }
     },
     gotoMessage () {
       this.$router.push({ name: 'MessageList' })

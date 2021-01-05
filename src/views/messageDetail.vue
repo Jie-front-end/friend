@@ -71,11 +71,18 @@ export default {
   activated () {
     this.message()
   },
-  methods: {
+  // watch: {
+  //   msglist() {
+  //     this.timer() 
+  //   }
+  // },
+  destroyed() {
+     clearTimeout(this.timer)
+  },
+    methods: {
     message () {
       const url = '/message/content'
       postAction(url, { name: this.loginName }).then(res => {
-        this.massageList = []
         this.msglist = res.data.msg.list
         this.chatPepole = res.data.msg.sex
         this.msglist.forEach(item => {
@@ -85,6 +92,7 @@ export default {
             this.massageList.push({ name: this.nickName, time: item.time, status: 'receive', message: item.content })
           }
         })
+        this.$forceUpdate();
         console.log('this.msglist', this.massageList)
       })
     },
@@ -101,6 +109,12 @@ export default {
           this.loading = false
         })
       }, 300)
+    },
+      // 这是一个定时器
+    timer() {
+      return setTimeout(()=>{
+        this.message()
+      },500)
     }
   }
 }
