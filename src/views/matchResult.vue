@@ -9,7 +9,10 @@
          <el-button style="float: left; padding: 3px 4px;margin-right:10px;color:#FF6B3B" @click="$router.push({name: 'Home'})" icon="el-icon-caret-left" circle></el-button>
     </div>
     <el-card class="box-card" shadow="always">
+      <div class="twoEnd">
         <div class="card-item-head">匹配程度</div>
+        <el-button round size="small" style="color:#FF6B3B" @click="gotoMessage(other_login_name,other_nickname )"><i class="iconfont icon-sixin"/></el-button>
+      </div>
         <div>
            <p class="info-weight">匹配得分：{{coResult.harmony.harmony_score}}</p>
            <span class="info">{{coResult.harmony.harmony_words}}</span>
@@ -70,7 +73,8 @@ export default {
       coResult: {
         harmony: {}
       },
-      other_nickname:''
+      other_nickname:'',
+      other_login_name:''
     }
   },
   computed: {
@@ -87,7 +91,11 @@ export default {
       postAction(url, { name: this.loginName }).then(res => {
         this.coResult = res.data.msg.result
         this.other_nickname = res.data.msg.other_nickname
+        this.other_login_name = res.data.msg.other_login_name
       })
+    },
+    gotoMessage (loginName, nickName) {
+      this.$router.push({ name: 'MessageDetail', query: { loginName: loginName, nickName: nickName } })
     }
   }
 }
@@ -145,5 +153,9 @@ export default {
   font-size:0.9em;
   line-height: 1.75em;
   padding: 2px;
+}
+.twoEnd{
+  display: flex;
+  justify-content: space-between;
 }
 </style>

@@ -1,6 +1,9 @@
 <template>
   <div>
+    <div class="twoEnd">
      <el-button type="text" style="color: rgba(0, 0, 0, 0.65);" @click="$router.push({name: 'MessageList'})"><i class="el-icon-arrow-left" /></el-button>
+     <!-- <el-button type="text" style="color: rgba(0, 0, 0, 0.65);" @click="$router.go(0)"><i class="el-icon-refresh" />点这里有TA的消息</el-button> -->
+    </div>
       <div class="twoPeople">
         <div>
             <i v-if="chatPepole.name_sex === '女'" class="iconfont icon-nvsheng iconSize" />
@@ -14,13 +17,15 @@
         </div>
       </div>
       <el-card class="card">
-        <div v-for="(item, index) in massageList" :class="[item.status === 'receive'?'box-left':'box-right']" :key="index" >
-           <div :class="[item.status === 'receive'?'big-box-shou':'big-box-fa']">
-              <div class="timeFont">{{item.time}}</div>
-              <div class="box-bord">
-                <span>{{item.message}}</span>
+        <div v-if="massageList.length">
+            <div v-for="(item, index) in massageList" :class="[item.status === 'receive'?'box-left':'box-right']" :key="index" >
+              <div :class="[item.status === 'receive'?'big-box-shou':'big-box-fa']">
+                  <div class="timeFont">{{item.time}}</div>
+                  <div class="box-bord">
+                    <span>{{item.message}}</span>
+                  </div>
               </div>
-           </div>
+            </div>
         </div>
         <div style="display:flex; margin-top:20px">
           <el-input v-model="sendText" style="width:200px;margin-right:10px;flex:1" placeholder="请输入内容"></el-input>
@@ -37,7 +42,6 @@ export default {
     return {
       page: 1,
       massageList: [
-
       ],
       msglist: [
       ],
@@ -66,32 +70,42 @@ export default {
     ])
   },
   created () {
-    this.message()
+    this.message();
+	  this.timer = setInterval(()=>{
+      this.message();
+    },2000);
   },
   activated () {
-    this.message()
+    this.message();
   },
   // watch: {
-  //   msglist() {
+  //   massageList() {
   //     this.timer() 
   //   }
   // },
   destroyed() {
-     clearTimeout(this.timer)
+    clearInterval(this.timer);
   },
     methods: {
     message () {
       const url = '/message/content'
       postAction(url, { name: this.loginName }).then(res => {
+         this.massageList = []
         this.msglist = res.data.msg.list
         this.chatPepole = res.data.msg.sex
-        this.msglist.forEach(item => {
-          if (item.send === this.login_name) {
-            this.massageList.push({ name: res.data.msg.sex.host_name, time: item.time, status: 'send', message: item.content })
-          } else if (item.accept === this.login_name) {
-            this.massageList.push({ name: this.nickName, time: item.time, status: 'receive', message: item.content })
-          }
+        this.chattime = res.data.msg.time_list   // 时间列表
+        this.chattime.forEach(item => {
+          this.msglist.forEach(item2 => {
+            if (item2.time === item){
+              if (item2.accept === this.loginName) {
+                this.massageList.push({ name: res.data.msg.sex.host_name, time: item2.time, status: 'send', message: item2.content })
+              }else if (item2.send === this.loginName) {
+                this.massageList.push({ name: this.nickName, time: item2.time, status: 'receive', message: item2.content })
+              }
+            }
+          })
         })
+
         this.$forceUpdate();
         console.log('this.msglist', this.massageList)
       })
@@ -110,12 +124,12 @@ export default {
         })
       }, 300)
     },
-      // 这是一个定时器
-    timer() {
-      return setTimeout(()=>{
-        this.message()
-      },500)
-    }
+    //   // 这是一个定时器
+    // timer() {
+    //   return setTimeout(()=>{
+    //     this.message()
+    //   },2000)
+    // }
   }
 }
 </script>
@@ -206,4 +220,9 @@ export default {
   .name-position{
     position: relative;
   }
+  .twoEnd{
+    display:flex;
+    justify-content: space-between;
+  }
 </style>
+

@@ -140,16 +140,16 @@ export default {
     },
     // 复制成功
     onCopy (e) {
-      this.$message({
-        showClose: true,
-        message: '复制成功',
-        type: 'success'
-      })
+      // this.$message({
+      //   showClose: true,
+      //   message: '复制成功',
+      //   type: 'success'
+      // })
       this.$store.commit('SET_Nick_NAME', e.text)
     },
     // 复制失败
     onError (e) {
-      this.$message.success('复制失败')
+      // this.$message.success('复制失败')
     }
   }
 }
