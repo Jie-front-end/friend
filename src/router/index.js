@@ -8,17 +8,17 @@ const routes = [
   {
     path: '/',
     name: 'Login',
-    component: () => import(/* webpackChunkName: "about" */ '../views/login.vue')
+    component: () => import(/* webpackChunkName: "Login" */ '../views/login.vue')
   },
   {
     path: '/register',
     name: 'Register',
-    component: () => import(/* webpackChunkName: "about" */ '../views/register.vue')
+    component: () => import(/* webpackChunkName: "Register" */ '../views/register.vue')
   },
   {
     path: '/forgetCode',
     name: 'ForgetCode',
-    component: () => import(/* webpackChunkName: "about" */ '../views/forgetCode.vue')
+    component: () => import(/* webpackChunkName: "ForgetCode" */ '../views/forgetCode.vue')
   },
   {
     path: '/friend',
@@ -27,14 +27,14 @@ const routes = [
       {
         path: 'index',
         name: 'Home',
-        component: () => import(/* webpackChunkName: "about" */ '../views/home.vue')
+        component: () => import(/* webpackChunkName: "Home" */ '../views/home.vue')
       }
     ]
   },
   {
     path: '/message',
     name: 'Message',
-    component: () => import(/* webpackChunkName: "about" */ '../views/message.vue')
+    component: () => import(/* webpackChunkName: "Message" */ '../views/message.vue')
   },
   {
     path: '/messageList',
@@ -43,7 +43,7 @@ const routes = [
       {
         path: 'index',
         name: 'MessageList',
-        component: () => import(/* webpackChunkName: "about" */ '../views/messageList.vue')
+        component: () => import(/* webpackChunkName: "MessageList" */ '../views/messageList.vue')
       }
     ]
   },
@@ -54,7 +54,7 @@ const routes = [
       {
         path: 'index',
         name: 'MessageDetail',
-        component: () => import(/* webpackChunkName: "about" */ '../views/messageDetail.vue')
+        component: () => import(/* webpackChunkName: "MessageDetail" */ '../views/messageDetail.vue')
       }
     ]
   },
@@ -65,7 +65,7 @@ const routes = [
       {
         path: 'index',
         name: 'Myself',
-        component: () => import(/* webpackChunkName: "about" */ '../views/myself.vue')
+        component: () => import(/* webpackChunkName: "Myself" */ '../views/myself.vue')
       }
     ]
   },
@@ -76,7 +76,7 @@ const routes = [
       {
         path: 'index',
         name: 'Match',
-        component: () => import(/* webpackChunkName: "about" */ '../views/match.vue')
+        component: () => import(/* webpackChunkName: "Match" */ '../views/match.vue')
       }
     ]
   },
@@ -87,7 +87,7 @@ const routes = [
       {
         path: 'index',
         name: 'MatchResult',
-        component: () => import(/* webpackChunkName: "about" */ '../views/matchResult.vue')
+        component: () => import(/* webpackChunkName: "MatchResult" */ '../views/matchResult.vue')
       }
     ]
   }
