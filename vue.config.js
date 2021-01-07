@@ -24,7 +24,7 @@ module.exports = {
   assetsDir: process.env.NODE_ENV === 'production' ? '../static' : 'static',
   publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
   outputDir: path.resolve(__dirname, '../templates'),
-  configureWebpack: {
+   configureWebpack: { 
     externals:{
         'vue': 'Vue',
         'vue-router': 'VueRouter',
@@ -33,5 +33,5 @@ module.exports = {
         'vuex': 'Vuex',
         'vue-clipboard2': 'VueClipboard'
     }
-}
+  }
 }

@@ -15,7 +15,7 @@
                     <i v-else class="iconfont icon-nansheng iconSize ml10" />
                     <span class="ml10">{{item.nickname}}</span>
                   </div>
-                  <div v-if="readFlag.length" class="redRound"></div>
+                  <div v-if="hasReadFlag(item.login_name)" class="redRound"></div>
                   <!-- <span class="right-corner">1</span> -->
               </div>
               <el-divider></el-divider>
@@ -61,13 +61,21 @@ export default {
       listLoading: false,
       dialogVisible: false,
       form: {},
-      readFlag:[],
+      readFlagList:[],
     }
   },
   mounted () {
     this.box()
   },
   methods: {
+    // 在code列表里找到当前发私信的用户名，找到则返回true
+    hasReadFlag(loginName){
+      if(this.readFlagList.findIndex( item => {return item === loginName}) !== -1){
+        return true
+      } else {
+        return false
+      }
+    },
     toMatch () {
 
     },
@@ -79,7 +87,7 @@ export default {
       const url = '/message/box'
       getAction(url).then(res => {
         this.nameList = res.data.msg.name
-        this.readFlag = res.data.msg.code
+        this.readFlagList = res.data.msg.code
       })
     }
   }

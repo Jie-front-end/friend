@@ -130,7 +130,7 @@ export default {
         { value: 13, label: '黑龙江' }, { value: 14, label: '江苏' }, { value: 15, label: '安徽' }, { value: 16, label: '福建' },
         { value: 17, label: '江西' }, { value: 18, label: '山东' }, { value: 19, label: '河南' }, { value: 20, label: '湖北' },
         { value: 21, label: '湖南' }, { value: 22, label: '海南' }, { value: 23, label: '广西' }, { value: 24, label: '四川' },
-        { value: 25, label: '贵州' }, { value: 26, label: '云南' }, { value: 27, label: '山西' }, { value: 28, label: '甘肃' },
+        { value: 25, label: '贵州' }, { value: 26, label: '云南' }, { value: 27, label: '陕西' }, { value: 28, label: '甘肃' },
         { value: 29, label: '青海' }, { value: 30, label: '新疆' }, { value: 31, label: '广东' }],
       cityList: [
         ['北京', '平谷', '密云', '顺义', '通县', '怀柔', '大兴', '房山', '延庆', '昌平'],
@@ -191,6 +191,8 @@ export default {
             } else {
               this.$message({ showClose: true, message: res.data.msg, type: 'warning' })
             }
+          }).catch(err =>{
+             this.$message.warning('注册失败')
           })
         } else {
           console.log('error submit!!')

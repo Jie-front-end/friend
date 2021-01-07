@@ -5,7 +5,7 @@
     <el-card class="box-card" v-for="(tableItem,index) in tableData" :key="index" shadow="always">
         <div class="card-item-head">{{tableItem.title}}</div>
         <div>
-      <el-carousel height="300px" :autoplay='false'>
+      <el-carousel height="300px" :autoplay='false' indicator-position="none">
         <el-carousel-item v-for="(item,index) in tableItem.data" :key="`card${index}`">
           <div class="allInfo">
             <div class="userName">

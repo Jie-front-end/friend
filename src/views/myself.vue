@@ -69,7 +69,9 @@
       :visible.sync="editVisual"
       width="70%"
       >
+      
     <el-form :model="editForm" ref="editForm" label-width="60px">
+      
       <el-form-item
         label="昵称"
         prop="nick_name"
@@ -94,12 +96,15 @@
         :rules="[
           { required: true, message: '个性签名不能为空'},
         ]"
-      >
+      >            
         <el-input type="textarea" v-model="editForm.sign"></el-input>
       </el-form-item>
+      
       <el-form-item>
-      </el-form-item>
+      </el-form-item>  
+          
     </el-form>
+    
       <div style="text-align:center">
         <el-button type="plain" size="small" @click="resetForm">取消</el-button>
         <el-button type="primary" size="small" @click="submitForm">确 定</el-button>

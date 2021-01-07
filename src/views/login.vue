@@ -56,6 +56,8 @@ export default {
             } else {
               this.$message.warning(res.data.msg)
             }
+          }).catch(err =>{
+             this.$message.warning('注册名密码错误')
           })
         }
       })

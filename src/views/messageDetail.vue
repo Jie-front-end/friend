@@ -65,15 +65,18 @@ export default {
     nickName () {
       return this.$route.query.nickName
     },
-    ...mapState([
-      'login_name'
-    ])
+    login_name(){
+      this.$store.state.login_name
+    }
+    // ...mapState([
+    //   'login_name'
+    // ])
   },
   created () {
     this.message();
-	  this.timer = setInterval(()=>{
-      this.message();
-    },2000);
+	  // this.timer = setInterval(()=>{
+    //   this.message();
+    // },2000);
   },
   activated () {
     this.message();
@@ -83,9 +86,9 @@ export default {
   //     this.timer() 
   //   }
   // },
-  destroyed() {
-    clearInterval(this.timer);
-  },
+  // destroyed() {
+  //   clearInterval(this.timer);
+  // },
     methods: {
     message () {
       const url = '/message/content'
@@ -94,6 +97,7 @@ export default {
         this.msglist = res.data.msg.list
         this.chatPepole = res.data.msg.sex
         this.chattime = res.data.msg.time_list   // 时间列表
+        console.log('login_name',this.login_name)
         this.chattime.forEach(item => {
           this.msglist.forEach(item2 => {
             if (item2.time === item){
@@ -105,7 +109,6 @@ export default {
             }
           })
         })
-
         this.$forceUpdate();
         console.log('this.msglist', this.massageList)
       })
@@ -153,7 +156,7 @@ export default {
   .big-box-fa span{
     background-color: #CDF3E4;
     padding: 5px 8px;
-    height: 20px;
+    min-height: 20px;
     display: inline-block;
     border-radius: 4px;
     margin:10px 0 10px 10px;
@@ -171,7 +174,7 @@ export default {
   .big-box-shou span{
     background-color: #F08BB4;
     padding: 5px 8px;
-    height: 20px;
+    min-height: 20px;
     display: inline-block;
     border-radius: 4px;
     margin:10px 0 10px 10px;

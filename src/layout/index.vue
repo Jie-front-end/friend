@@ -12,7 +12,10 @@
      </el-autocomplete>
     <!-- <el-button icon="el-icon-search"  @click="inputSearch()" circle style="color:#FF6B3B "></el-button> -->
     <el-button icon="el-icon-question"  @click="messageVisial = true" circle style="color:#FF6B3B "></el-button>
-    <el-button  icon="el-icon-message" @click="gotoMessage" circle style="color:#FF6B3B "></el-button>
+    <div class="redRoundFa">
+      <el-button icon="el-icon-message" @click="gotoMessage" circle style="color:#FF6B3B "></el-button>
+      <div v-if="code_new === '1'" class="redRound"></div>
+    </div>
     <!-- <el-button  @click="gotoLink" circle style="color:#FF6B3B "><i style="font-size:20px" class="iconfont icon-maomi"/></el-button> -->
     <el-dropdown trigger="click" @command="handleClick">
     <el-button icon="el-icon-more" style="margin-left:8px;color:#FF6B3B"  circle></el-button>
@@ -61,6 +64,7 @@ export default {
       queryInput: '',
       messageVisial: false,
       imgVisial:false,
+      code_new:'',
       imgUrl: require("../assets/miao.jpg")
     }
   },
@@ -68,6 +72,9 @@ export default {
     ...mapState([
       'nickname'
     ])
+  },
+  mounted(){
+    this.box()
   },
   watch: {
     nickname (newName, oldName) {
@@ -121,6 +128,12 @@ export default {
       this.queryInput = queryString
       console.log('queryString', queryString)
       this.search(cb)
+    },
+    box () {
+      const url = '/message/box'
+      getAction(url).then(res => {
+        this.code_new = res.data.msg.code_new
+      })
     }
     // inputSearch () {
     //   this.$router.push({ name: 'MatchResult', query: { matchName: this.login } })
@@ -145,5 +158,19 @@ export default {
 .el-dropdown-link {
     cursor: pointer;
     color: #FF9E7B;
+  }
+  .redRoundFa{
+    display: inline-block;
+    position: relative;
+    margin-left: 10px;
+  }
+  .redRound{
+    width: 6px;
+    height: 6px;
+    background: red;
+    border-radius: 3px;
+    position: absolute;
+    top:8px;
+    right:8px;
   }
 </style>
