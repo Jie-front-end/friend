@@ -75,6 +75,12 @@ export default {
   },
   mounted(){
     this.box()
+	  this.timer = setInterval(()=>{
+      this.box();
+    },30000);
+  },
+    destroyed() {
+    clearInterval(this.timer);
   },
   watch: {
     nickname (newName, oldName) {

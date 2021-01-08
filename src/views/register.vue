@@ -24,8 +24,7 @@
         <div class="form-description">方便找回密码。</div>
         <el-input v-model="form.phone" placeholder="请输入联系方式"></el-input>
       </el-form-item>
-      <el-form-item label="出生时间" prop="date">
-        <div class="form-description">八字排盘需要，填写阳历生日，最好能够准确到分如果实在不清楚精确到小时也可以。</div>
+      <el-form-item label="生日" prop="date">
         <el-col :span="11">
           <el-date-picker
             type="date"
@@ -182,8 +181,8 @@ export default {
           this.form.year = date.split('-')[0]
           this.form.month = date.split('-')[1]
           this.form.day = date.split('-')[2]
-          this.form.hour = date.split(':')[0]
-          this.form.minute = date.split(':')[1]
+          this.form.hour = time.split(':')[0]
+          this.form.minute = time.split(':')[1]
           postAction(url, this.form).then(res => {
             if (res.data.code == 200) {
               this.$message({ showClose: true, message: res.data.msg, type: 'success' })
@@ -192,7 +191,7 @@ export default {
               this.$message({ showClose: true, message: res.data.msg, type: 'warning' })
             }
           }).catch(err =>{
-             this.$message.warning('注册失败')
+             this.$message.warning('注册名重复')
           })
         } else {
           console.log('error submit!!')

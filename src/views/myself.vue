@@ -71,7 +71,23 @@
       >
       
     <el-form :model="editForm" ref="editForm" label-width="60px">
-      
+      <el-form-item label="生日" prop="date">
+          <el-date-picker
+            type="date"
+            value-format="yyyy-MM-dd"
+            placeholder="请选择阳历生日"
+            v-model="editForm.date"
+            style="width: 100%;"
+          ></el-date-picker>
+      </el-form-item>
+      <el-form-item label="时辰" prop="time">
+          <el-time-picker
+            placeholder="选择出生时间"
+            value-format="HH:mm:ss"
+            v-model="editForm.time"
+            style="width: 100%;"
+          ></el-time-picker>
+      </el-form-item>
       <el-form-item
         label="昵称"
         prop="nick_name"
@@ -130,7 +146,9 @@ export default {
       editForm: {
         career: '',
         sign: '',
-        nick_name: ''
+        nick_name: '',
+        date:'',
+        time:''
       },
       editVisual: false
       // option:{
@@ -190,15 +208,23 @@ export default {
       this.editForm.nick_name = this.form.nick
       this.editForm.career = this.form.career
       this.editForm.sign = this.form.sign
+      this.editForm.date = this.form.date
     },
     submitForm () {
       this.$refs.editForm.validate((valid) => {
         if (valid) {
           const url = '/user/info'
+          const date = this.editForm.date
+          const time = this.editForm.time
+          this.editForm.year = date.split('-')[0]
+          this.editForm.month = date.split('-')[1]
+          this.editForm.day = date.split('-')[2]
+          this.editForm.hour = time.split(':')[0]
+          this.editForm.minute = time.split(':')[1]
           postAction(url, this.editForm).then(res => {
             if (res.data.code == 200) {
-              this.host()
               this.editVisual = false
+              this.host()
               this.$message.warning(res.data.msg)
             } else {
               this.$message.warning(res.data.msg)
