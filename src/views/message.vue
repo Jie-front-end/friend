@@ -84,7 +84,7 @@ export default {
     border-radius: 10px;
   }
   .content-body{
-    height: 1000px;
+    min-height: 1000px;
   }
   .small-font{
     font-size: 12px;
