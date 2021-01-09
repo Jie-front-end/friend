@@ -71,7 +71,7 @@
       >
       
     <el-form :model="editForm" ref="editForm" label-width="60px">
-      <el-form-item label="生日" prop="date">
+      <el-form-item label="生日" >
           <el-date-picker
             type="date"
             value-format="yyyy-MM-dd"
@@ -80,7 +80,7 @@
             style="width: 100%;"
           ></el-date-picker>
       </el-form-item>
-      <el-form-item label="时辰" prop="time">
+      <el-form-item label="时辰" >
           <el-time-picker
             placeholder="选择出生时间"
             value-format="HH:mm:ss"
@@ -208,7 +208,6 @@ export default {
       this.editForm.nick_name = this.form.nick
       this.editForm.career = this.form.career
       this.editForm.sign = this.form.sign
-      this.editForm.date = this.form.date
     },
     submitForm () {
       this.$refs.editForm.validate((valid) => {
@@ -230,10 +229,7 @@ export default {
               this.$message.warning(res.data.msg)
             }
           })
-        } else {
-          console.log('error submit!!')
-          return false
-        }
+        } 
       })
     },
     resetForm () {
